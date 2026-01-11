@@ -1,4 +1,4 @@
-package com.example.emotion_map_app
+package com.emotionmap.app
 
 import io.flutter.embedding.android.FlutterActivity
 
