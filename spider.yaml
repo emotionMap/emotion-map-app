@@ -17,3 +17,6 @@ use_part_of: true
 package: asset
 
 groups:
+  - path: assets/webp
+    class_name: WebpImage
+    file_name: webp

@@ -44,6 +44,7 @@ class MyApp extends HookConsumerWidget {
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: systemUiOverlayStyle,
         child: MaterialApp.router(
+          theme: ThemeData(scaffoldBackgroundColor: Colors.white),
           debugShowCheckedModeBanner: false,
           routerConfig: router.config(),
           builder: (context, widget) => MediaQuery.withNoTextScaling(
