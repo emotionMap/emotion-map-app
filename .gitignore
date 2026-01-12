@@ -52,3 +52,7 @@ lib/**/*.g.dart
 lib/**/*.gr.dart
 
 .env*
+
+service-account.json
+
+**/fastlane/report.xml
