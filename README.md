@@ -1,16 +1,49 @@
-# emotion_map_app
+# Emotion Map App
 
-A new Flutter project.
+감정연결지도 Flutter
 
-## Getting Started
+## 기술 스택
 
-This project is a starting point for a Flutter application.
+- **Framework**: Flutter (SDK ^3.10.4)
+- **State Management**: Riverpod + Hooks
+- **Routing**: Auto Route
+- **Social Login**: Naver, Kakao, Google, Apple
+- **CI/CD**: Fastlane, Firebase Distribution
 
-A few resources to get you started if this is your first Flutter project:
+## 시작하기
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 환경 설정
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+# Flutter 버전 관리 (FVM 사용 중)
+fvm use
+
+# 의존성 설치 및 코드 생성
+make clean
+```
+
+### 실행
+
+VSCode에서 실행 구성 선택 (F5):
+- `dev-debug` - Development 디버그 모드
+- `prod-debug` - Production 디버그 모드
+- `dev-profile` - Development 프로파일 모드
+- `prod-profile` - Production 프로파일 모드
+- `dev-release` - Development 릴리즈 모드
+- `prod-release` - Production 릴리즈 모드
+
+또는 터미널에서:
+```bash
+# Development
+flutter run --flavor dev --dart-define=APP_MODE=dev
+
+# Production
+flutter run --flavor prod --dart-define=APP_MODE=prod
+```
+
+## 프로젝트 구조
+
+- `lib/` - 애플리케이션 소스 코드
+- `assets/` - 리소스 파일 (이미지, 폰트)
+- `android/` - Android 네이티브 설정
+- `ios/` - iOS 네이티브 설정
