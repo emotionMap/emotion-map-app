@@ -50,3 +50,5 @@ app.*.map.json
 lib/**/*.freezed.dart
 lib/**/*.g.dart
 lib/**/*.gr.dart
+
+.env*

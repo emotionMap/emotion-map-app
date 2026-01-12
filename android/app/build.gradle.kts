@@ -1,3 +1,17 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
+import java.io.FileInputStream
+import io.github.cdimascio.dotenv.dotenv
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("io.github.cdimascio:dotenv-kotlin:6.5.1")
+    }
+}
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -30,11 +44,53 @@ android {
         versionName = flutter.versionName
     }
 
+    val devEnv = dotenv {
+        directory = "../"
+        filename = ".env.dev"
+    }
+
+    val prodEnv = dotenv {
+        directory = "../"
+        filename = ".env"
+    }
+
+    signingConfigs {
+        getByName("debug") {
+            keyAlias = devEnv.get("KEY_ALIAS", "")
+            keyPassword = devEnv.get("KEY_PASSWORD", "")
+            storeFile = file(devEnv.get("STORE_FILE", ""))
+            storePassword = devEnv.get("STORE_PASSWORD", "")
+        }
+        create("release") {
+            keyAlias = prodEnv.get("KEY_ALIAS", "")
+            keyPassword = prodEnv.get("KEY_PASSWORD", "")
+            storeFile = file(prodEnv.get("STORE_FILE", ""))
+            storePassword = prodEnv.get("STORE_PASSWORD", "")
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+        }
+    }
+
+
+    flavorDimensions += "flavor"
+
+    productFlavors {
+        create("dev") {
+            dimension = "flavor"
+            applicationIdSuffix = ".dev"
+
+            resValue("string", "APP_NAME", devEnv.get("APP_NAME", ""))
+        }
+
+        create("prod") {
+            dimension = "flavor"
+
+            resValue("string", "APP_NAME", prodEnv.get("APP_NAME", ""))
         }
     }
 }

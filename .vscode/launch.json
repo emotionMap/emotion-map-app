@@ -1,11 +1,76 @@
 {
     "configurations": [
         {
-            "name": "debug",
+            "name": "dev-debug",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
-            "program": "lib/main.dart"
-        }
-    ]
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "dev",
+                "--dart-define=APP_MODE=dev"
+            ]
+        },
+        {
+            "name": "prod-debug",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "prod",
+                "--dart-define=APP_MODE=prod"
+            ]
+        },
+        {
+            "name": "dev-profile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "dev",
+                "--dart-define=APP_MODE=dev"
+            ]
+        },
+        {
+            "name": "prod-profile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "prod",
+                "--dart-define=APP_MODE=prod"
+            ]
+        },
+        {
+            "name": "dev-release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "dev",
+                "--dart-define=APP_MODE=dev"
+            ]
+        },
+        {
+            "name": "prod-release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "prod",
+                "--dart-define=APP_MODE=prod"
+            ]
+        },
+    ],
 }
