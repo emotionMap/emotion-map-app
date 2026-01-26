@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('webp assets test', () {
     expect(File(WebpImage.onbaordLogo).existsSync(), isTrue);
+    expect(File(WebpImage.socialApple).existsSync(), isTrue);
     expect(File(WebpImage.socialKakao).existsSync(), isTrue);
     expect(File(WebpImage.socialNaver).existsSync(), isTrue);
   });

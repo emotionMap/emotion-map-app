@@ -64,6 +64,13 @@ class OnboardView extends HookConsumerWidget {
                     Colors.white,
                     () {},
                   ),
+                  (
+                    WebpImage.socialApple,
+                    "애플 로그인",
+                    Color(0xFF050708),
+                    Colors.white,
+                    () {},
+                  ),
                 ].map((item) => OnboardButton(item: item)).toList(),
               ),
             ),

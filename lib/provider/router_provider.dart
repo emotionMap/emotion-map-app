@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:emotion_map_app/module/onboard/register/register_view.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Onboard
