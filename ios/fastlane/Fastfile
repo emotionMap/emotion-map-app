@@ -35,7 +35,7 @@ platform :ios do
   desc "Deploy Firebase Dev"
   lane :deploy_firebase_dev do
     Dir.chdir "../.." do
-      sh("fvm", "flutter", "build", "ipa", "--release", "--flavor", "dev", "--dart-define=APP_MODE=dev", "--export-options-plist=ios/Runner/Dev/ExportOptions.plist")
+      sh("fvm", "flutter", "build", "ipa", "--release", "--flavor", "dev", "--export-options-plist=ios/Runner/Dev/ExportOptions.plist")
     end
 
     firebase_app_distribution(

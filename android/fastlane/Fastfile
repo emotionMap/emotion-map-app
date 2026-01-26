@@ -39,7 +39,7 @@ platform :android do
     no = version_info[:build_number]
 
     Dir.chdir "../.." do
-      sh("fvm", "flutter", "build", "apk", "--release", "--flavor", "dev", "--dart-define=APP_MODE=dev", "--build-number", no, "--build-name", version)
+      sh("fvm", "flutter", "build", "apk", "--release", "--flavor", "dev", "--build-number", no, "--build-name", version)
     end
 
     firebase_app_distribution(

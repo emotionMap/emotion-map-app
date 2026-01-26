@@ -35,10 +35,10 @@ VSCode에서 실행 구성 선택 (F5):
 또는 터미널에서:
 ```bash
 # Development
-flutter run --flavor dev --dart-define=APP_MODE=dev
+flutter run --flavor dev
 
 # Production
-flutter run --flavor prod --dart-define=APP_MODE=prod
+flutter run --flavor prod
 ```
 
 ## 프로젝트 구조

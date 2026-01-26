@@ -8,8 +8,7 @@
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
-                "dev",
-                "--dart-define=APP_MODE=dev"
+                "dev"
             ]
         },
         {
@@ -20,8 +19,7 @@
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
-                "prod",
-                "--dart-define=APP_MODE=prod"
+                "prod"
             ]
         },
         {
@@ -32,8 +30,7 @@
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
-                "dev",
-                "--dart-define=APP_MODE=dev"
+                "dev"
             ]
         },
         {
@@ -44,8 +41,7 @@
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
-                "prod",
-                "--dart-define=APP_MODE=prod"
+                "prod"
             ]
         },
         {
@@ -56,8 +52,7 @@
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
-                "dev",
-                "--dart-define=APP_MODE=dev"
+                "dev"
             ]
         },
         {
@@ -68,8 +63,7 @@
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
-                "prod",
-                "--dart-define=APP_MODE=prod"
+                "prod"
             ]
         },
     ],
