@@ -15,6 +15,14 @@ dependencies:
   flutter_hooks: ^0.21.3+1
   riverpod_annotation: ^4.0.0
 
+  # API
+  retrofit: ^4.9.2
+  dio: ^5.9.0
+
+  # Model
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
+
   # Route
   auto_route: ^11.1.0
 
@@ -35,6 +43,13 @@ dev_dependencies:
   # State
   riverpod_generator: ^4.0.0+1
 
+  # API
+  retrofit_generator: ^10.2.1
+
+  # Model
+  freezed: ^3.2.3
+  json_serializable: ^6.11.1
+
   # Runner
   build_runner: ^2.10.4
 
@@ -49,6 +64,7 @@ dev_dependencies:
   # CLI
   spider: ^4.2.3
   change_app_package_name: ^1.4.0
+  openapi_generator_cli: ^6.1.0
 
 flutter:
   uses-material-design: true

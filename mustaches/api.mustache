@@ -1,0 +1,54 @@
+{{>header}}
+
+import 'package:retrofit/retrofit.dart';
+import 'package:dio/dio.dart' hide Headers;
+{{#operations}}
+{{#imports}}import '{{.}}';
+{{/imports}}
+
+part '{{classFilename}}.g.dart';
+
+@RestApi()
+abstract class {{classname}} {
+  factory {{classname}}(Dio dio, {String? baseUrl}) = _{{classname}};
+
+ {{#operation}}
+
+  /// {{summary}}{{^summary}}{{nickname}}{{/summary}}
+  /// {{notes}}
+  ///
+  /// Parameters:
+  {{#allParams}}
+  /// * [{{paramName}}] {{#description}}- {{{.}}}{{/description}}
+  {{/allParams}}
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  ///
+  {{#externalDocs}}
+  /// {{description}}
+  /// Also see [{{summary}} Documentation]({{url}})
+  {{/externalDocs}}
+  {{#isDeprecated}}
+  @Deprecated('This operation has been deprecated')
+  {{/isDeprecated}}
+  @{{httpMethod}}('{{{path}}}')
+  {{#hasConsumes}}
+  @Headers(<String, dynamic>{
+    'Content-Type': '{{#prioritizedContentTypes}}{{#-first}}{{{mediaType}}}{{/-first}}{{/prioritizedContentTypes}}',
+  })
+  {{/hasConsumes}}
+  {{#isResponseFile}}
+  @DioResponseType(ResponseType.bytes)
+  {{/isResponseFile}}
+  Future<{{#isResponseFile}}HttpResponse<List<int>>{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{/isResponseFile}}{{^returnType}}void{{/returnType}}> {{nickname}}({ {{#allParams}}{{#isPathParam}}
+    {{#isDeprecated}}@Deprecated('{{paramName}} is deprecated') {{/isDeprecated}}@Path('{{paramName}}') required {{{dataType}}} {{paramName}},{{/isPathParam}}{{#isQueryParam}}
+    {{#isDeprecated}}@Deprecated('{{paramName}} is deprecated') {{/isDeprecated}}@Query('{{paramName}}') {{#required}}{{^isNullable}}{{^defaultValue}}required {{/defaultValue}}{{/isNullable}}{{/required}}{{{dataType}}}{{#required}}{{#isNullable}}?{{/isNullable}}{{/required}}{{^required}}?{{/required}} {{paramName}}{{^isContainer}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/isContainer}},{{/isQueryParam}}{{#isHeaderParam}}
+    {{#isDeprecated}}@Deprecated('{{paramName}} is deprecated') {{/isDeprecated}}@Header('{{paramName}}') {{#required}}{{^isNullable}}{{^defaultValue}}required {{/defaultValue}}{{/isNullable}}{{/required}}{{{dataType}}}{{#required}}{{#isNullable}}?{{/isNullable}}{{/required}}{{^required}}?{{/required}} {{paramName}}{{^isContainer}}{{#defaultValue}} = {{{.}}}{{/defaultValue}}{{/isContainer}},{{/isHeaderParam}}{{#isBodyParam}}
+    {{#isDeprecated}}@Deprecated('{{paramName}} is deprecated') {{/isDeprecated}}@Body() {{#required}}{{^isNullable}}required {{/isNullable}}{{/required}}{{{dataType}}}{{#required}}{{#isNullable}}?{{/isNullable}}{{/required}}{{^required}}?{{/required}} {{paramName}},{{/isBodyParam}}{{#isFormParam}}
+    {{#isDeprecated}}@Deprecated('{{paramName}} is deprecated') {{/isDeprecated}}@Part() {{#required}}{{^isNullable}}required {{/isNullable}}{{/required}}{{{dataType}}}{{#required}}{{#isNullable}}?{{/isNullable}}{{/required}}{{^required}}?{{/required}} {{paramName}},{{/isFormParam}}{{/allParams}}
+    CancelToken? cancelToken,
+  });
+
+  {{/operation}}
+}
+
+{{/operations}}

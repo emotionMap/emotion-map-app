@@ -1,0 +1,11 @@
+  /// Returns a new [{{{classname}}}] instance.
+  {{{classname}}}({
+  {{#vars}}
+
+    {{!
+        A field is required in Dart when it is
+        required && !defaultValue in OAS
+    }}
+    {{#required}}required {{/required}} this.{{{name}}},
+  {{/vars}}
+  });

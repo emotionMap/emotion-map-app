@@ -217,6 +217,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.0"
+  cli_launcher:
+    dependency: transitive
+    description:
+      name: cli_launcher
+      sha256: "17d2744fb9a254c49ec8eda582536abe714ea0131533e24389843a4256f82eac"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.2+1"
   cli_util:
     dependency: transitive
     description:
@@ -314,7 +322,7 @@ packages:
     source: hosted
     version: "3.1.3"
   dio:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: dio
       sha256: d90ee57923d1828ac14e492ca49440f65477f4bb1263575900be731a3dac66a9
@@ -432,8 +440,16 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed:
+    dependency: "direct dev"
+    description:
+      name: freezed
+      sha256: "13065f10e135263a4f5a4391b79a8efc5fb8106f8dd555a9e49b750b45393d77"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.3"
   freezed_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: freezed_annotation
       sha256: "7294967ff0a6d98638e7acb774aac3af2550777accd8149c90af5b014e6d44d8"
@@ -577,13 +593,21 @@ packages:
     source: hosted
     version: "0.7.2"
   json_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: json_annotation
       sha256: "1ce844379ca14835a50d2f019a3099f419082cfdd231cd86a142af94dd5c6bb1"
       url: "https://pub.dev"
     source: hosted
     version: "4.9.0"
+  json_serializable:
+    dependency: "direct dev"
+    description:
+      name: json_serializable
+      sha256: c5b2ee75210a0f263c6c7b9eeea80553dbae96ea1bf57f02484e806a3ffdffa3
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.11.2"
   kakao_flutter_sdk_auth:
     dependency: transitive
     description:
@@ -720,6 +744,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  openapi_generator_cli:
+    dependency: "direct dev"
+    description:
+      name: openapi_generator_cli
+      sha256: a7b764d8b121ecb7cdd466c688da1e1a592f7fff73673dcdb35ee5009f49739b
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.0"
   package_config:
     dependency: transitive
     description:
@@ -832,6 +864,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.2"
+  protobuf:
+    dependency: transitive
+    description:
+      name: protobuf
+      sha256: "75ec242d22e950bdcc79ee38dd520ce4ee0bc491d7fadc4ea47694604d22bf06"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.0"
   pub_semver:
     dependency: transitive
     description:
@@ -848,6 +888,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
+  retrofit:
+    dependency: "direct main"
+    description:
+      name: retrofit
+      sha256: "0f629ed26b2c48c66fe54bd548313c6fdf7955be18bff37e08a46dd3f97f8eaf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.9.2"
+  retrofit_generator:
+    dependency: "direct dev"
+    description:
+      name: retrofit_generator
+      sha256: fed2c4e4ed6dab084c00d25c739988aa3cec1acd2b168771136188cced8d967d
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.2.1"
   riverpod:
     dependency: transitive
     description:
@@ -1021,6 +1077,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.1"
+  source_helper:
+    dependency: transitive
+    description:
+      name: source_helper
+      sha256: "6a3c6cc82073a8797f8c4dc4572146114a39652851c157db37e964d9c7038723"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.8"
   source_map_stack_trace:
     dependency: transitive
     description:

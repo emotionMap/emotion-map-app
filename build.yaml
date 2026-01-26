@@ -1,0 +1,19 @@
+targets:
+  $default:
+    builders:
+      auto_route_generator:auto_route_generator:
+        generate_for:
+          - lib/module/**/**_view.dart
+      auto_route_generator:auto_router_generator:
+        generate_for:
+          - lib/provider/router_provider.dart
+      retrofit_generator:
+        generate_for:
+          - lib/generate/api/**.dart
+global_options:
+  freezed:
+    runs_before:
+      - json_serializable
+  json_serializable:
+    runs_before:
+      - retrofit_generator
