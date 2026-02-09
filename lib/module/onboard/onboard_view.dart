@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:emotion_map_app/asset/index.dart';
+import 'package:emotion_map_app/module/onboard/onboard_provider.dart';
 import 'package:emotion_map_app/style/index.dart';
 import 'package:emotion_map_app/widget/index.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class OnboardView extends HookConsumerWidget {
                     "카카오 로그인",
                     Color(0xFFFEE500),
                     Color(0xFF121212),
-                    () {},
+                    () => onLogin(ref, .kakao),
                   ),
                   (
                     WebpImage.socialNaver,

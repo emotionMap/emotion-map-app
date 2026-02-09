@@ -85,12 +85,14 @@ android {
             applicationIdSuffix = ".dev"
 
             resValue("string", "APP_NAME", devEnv.get("APP_NAME", ""))
+            resValue("string", "KAKAO_SCHEME", devEnv.get("KAKAO_SCHEME", ""))
         }
 
         create("prod") {
             dimension = "flavor"
 
             resValue("string", "APP_NAME", prodEnv.get("APP_NAME", ""))
+            resValue("string", "KAKAO_SCHEME", prodEnv.get("KAKAO_SCHEME", ""))
         }
     }
 }

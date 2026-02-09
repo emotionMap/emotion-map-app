@@ -1,9 +1,15 @@
+import 'package:emotion_map_app/enum/app_mode.dart';
+import 'package:emotion_map_app/provider/app_provider.dart';
 import 'package:emotion_map_app/provider/router_provider.dart';
 import 'package:emotion_map_app/util/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const systemUiOverlayStyle = SystemUiOverlayStyle(
   systemNavigationBarContrastEnforced: false,
@@ -16,7 +22,7 @@ const systemUiOverlayStyle = SystemUiOverlayStyle(
   statusBarIconBrightness: Brightness.dark,
 );
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
@@ -24,10 +30,31 @@ void main() {
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
+  final appMode = AppMode.fromString(appFlavor ?? "prod");
+  if (appMode == .prod) {
+    await dotenv.load(fileName: ".env");
+  } else {
+    await dotenv.load(fileName: ".env.${appMode.name}");
+  }
+
+  KakaoSdk.init(
+    nativeAppKey: dotenv.get('KAKAO_NATIVE_KEY'),
+    javaScriptAppKey: dotenv.get('KAKAO_JS_KEY'),
+  );
+
+  final secureStorage = FlutterSecureStorage();
+
+  final localStorage = await SharedPreferences.getInstance();
+
   runApp(
     ProviderScope(
       observers: const [ProviderLogger()],
-      overrides: [],
+      overrides: [
+        appModeProvider.overrideWithValue(appMode),
+        secureStorageProvider.overrideWithValue(secureStorage),
+        localStorageProvider.overrideWithValue(localStorage),
+        apiUrlProvider.overrideWithValue(dotenv.get("API_URL")),
+      ],
       child: const MyApp(),
     ),
   );

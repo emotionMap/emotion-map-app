@@ -30,12 +30,23 @@ dependencies:
   loader_overlay: ^5.0.0
   cached_network_image: ^3.4.1
 
+  # Storage
+  flutter_secure_storage: ^9.2.4
+  shared_preferences: ^2.5.3
+  
   # Social Login
   flutter_naver_login: ^2.1.1
   kakao_flutter_sdk_user: ^1.10.0
   google_sign_in: ^7.2.0
   sign_in_with_apple: ^7.0.1
 
+  # Util
+  flutter_dotenv: ^5.2.1
+  collection: ^1.19.1
+
+  # Native Util
+  url_launcher: ^6.3.2
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -70,6 +81,8 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
+    - .env.dev
     - assets/webp/
 
   fonts:
