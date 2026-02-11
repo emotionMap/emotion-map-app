@@ -30,7 +30,11 @@ enum AuthLoginRequestProviderEnum {
 
   /// 소셜 로그인 제공자
   @JsonValue(r'NAVER')
-  naver(r'NAVER');
+  naver(r'NAVER'),
+
+  /// 소셜 로그인 제공자
+  @JsonValue(r'APPLE')
+  apple(r'APPLE');
 
   const AuthLoginRequestProviderEnum(this.value);
 

@@ -13,8 +13,8 @@ part 'auth_api.g.dart';
 abstract class AuthApi {
   factory AuthApi(Dio dio, {String? baseUrl}) = _AuthApi;
 
-  /// 소셜 로그인
-  /// 카카오 / 네이버 소셜 로그인 API
+  /// 로그인
+  /// 카카오/네이버/애플 로그인 API
   ///
   /// Parameters:
   /// * [authLoginRequest]
@@ -23,6 +23,20 @@ abstract class AuthApi {
   @POST('/auth/login')
   @Headers(<String, dynamic>{'Content-Type': 'application/json'})
   Future<ApiResponseAuthLoginResponse> login1({
+    @Body() required AuthLoginRequest authLoginRequest,
+    CancelToken? cancelToken,
+  });
+
+  /// 유저테이블 데이터 삭제
+  /// 테스트용 API
+  ///
+  /// Parameters:
+  /// * [authLoginRequest]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  ///
+  @POST('/auth/userInfoClean')
+  @Headers(<String, dynamic>{'Content-Type': 'application/json'})
+  Future<void> userInfoClean({
     @Body() required AuthLoginRequest authLoginRequest,
     CancelToken? cancelToken,
   });
