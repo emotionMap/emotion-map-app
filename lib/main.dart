@@ -10,6 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 const systemUiOverlayStyle = SystemUiOverlayStyle(
   systemNavigationBarContrastEnforced: false,
@@ -68,6 +69,8 @@ class MyApp extends HookConsumerWidget {
     final router = ref.watch(routerProvider);
 
     return GlobalLoaderOverlay(
+      overlayWidgetBuilder: (_) =>
+          Center(child: SpinKitCircle(size: 70, color: Color(0xFF75C537))),
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: systemUiOverlayStyle,
         child: MaterialApp.router(
