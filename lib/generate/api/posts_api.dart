@@ -4,6 +4,7 @@
 
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart' hide Headers;
+import 'package:emotion_map_app/generate/model/api_response_list_post_list_response.dart';
 import 'package:emotion_map_app/generate/model/api_response_post_detail_response.dart';
 import 'package:emotion_map_app/generate/model/api_response_post_list_response.dart';
 import 'package:emotion_map_app/generate/model/api_response_void.dart';
@@ -65,11 +66,20 @@ abstract class PostsApi {
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   ///
   @GET('/posts')
-  Future<ApiResponsePostListResponse> getPostList({
+  Future<ApiResponseListPostListResponse> getPostList({
     @Query('page') int? page = 1,
     @Query('size') int? size = 20,
     CancelToken? cancelToken,
   });
+
+  /// 내가 작성한 포스트
+  ///
+  ///
+  /// Parameters:
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  ///
+  @GET('/posts/my')
+  Future<ApiResponsePostListResponse> myPosts({CancelToken? cancelToken});
 
   /// 포스트 수정
   ///

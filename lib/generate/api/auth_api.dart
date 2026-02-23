@@ -26,18 +26,4 @@ abstract class AuthApi {
     @Body() required AuthLoginRequest authLoginRequest,
     CancelToken? cancelToken,
   });
-
-  /// 유저테이블 데이터 삭제
-  /// 테스트용 API
-  ///
-  /// Parameters:
-  /// * [authLoginRequest]
-  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
-  ///
-  @POST('/auth/userInfoClean')
-  @Headers(<String, dynamic>{'Content-Type': 'application/json'})
-  Future<void> userInfoClean({
-    @Body() required AuthLoginRequest authLoginRequest,
-    CancelToken? cancelToken,
-  });
 }

@@ -20,7 +20,7 @@ abstract class ProfileApi {
   /// * [profileRequest]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   ///
-  @POST('/profile/reg')
+  @POST('/profile/create')
   @Headers(<String, dynamic>{'Content-Type': 'application/json'})
   Future<ApiResponseProfileResponse> login({
     @Body() required ProfileRequest profileRequest,
