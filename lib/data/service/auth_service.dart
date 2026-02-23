@@ -25,6 +25,8 @@ class AuthService {
         case LoginType.kakao:
           provider = .kakao;
           break;
+        case LoginType.naver:
+          provider = .naver;
       }
 
       return await _authApi.login1(

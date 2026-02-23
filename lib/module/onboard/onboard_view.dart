@@ -63,7 +63,7 @@ class OnboardView extends HookConsumerWidget {
                     "네이버 로그인",
                     Color(0xFF03C75A),
                     Colors.white,
-                    () {},
+                    () => onLogin(ref, .naver),
                   ),
                   (
                     WebpImage.socialApple,

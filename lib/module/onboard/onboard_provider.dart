@@ -1,11 +1,13 @@
 import 'package:emotion_map_app/data/provider/service_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_naver_login/flutter_naver_login.dart';
+import 'package:flutter_naver_login/interface/types/naver_login_status.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
-enum LoginType { kakao }
+enum LoginType { kakao, naver }
 
 void onLogin(WidgetRef ref, LoginType type) async {
   final context = ref.context;
@@ -66,5 +68,29 @@ void onLogin(WidgetRef ref, LoginType type) async {
       }
 
       break;
+    case LoginType.naver:
+      try {
+        final res = await FlutterNaverLogin.logIn();
+
+        if (res.status != NaverLoginStatus.loggedIn) {
+          if (!context.mounted) return;
+          context.loaderOverlay.hide();
+        }
+
+        final token = await FlutterNaverLogin.getCurrentAccessToken();
+
+        try {
+          await authService.login(type: type, accessToken: token.accessToken);
+
+          if (!context.mounted) return;
+          context.loaderOverlay.hide();
+        } catch (e) {
+          if (!context.mounted) return;
+          context.loaderOverlay.hide();
+        }
+      } catch (error) {
+        if (!context.mounted) return;
+        context.loaderOverlay.hide();
+      }
   }
 }
