@@ -11,8 +11,15 @@ part 'post_update_request.g.dart';
 @freezed
 abstract class PostUpdateRequest with _$PostUpdateRequest {
   const factory PostUpdateRequest({
-    /// 소셜 로그인 제공자
-    @JsonKey(name: r'provider') String? provider,
+    /// 위치 ID (선택)
+    @JsonKey(name: r'locationId') int? locationId,
+
+    /// 감정 태그 ID 목록 (선택, 전달 시 전체 교체)
+    @JsonKey(name: r'emotionIds') List<int>? emotionIds,
+
+    /// 본문 (선택)
+    @JsonKey(name: r'content') String? content,
+    @JsonKey(name: r'postId') int? postId,
   }) = _PostUpdateRequest;
 
   factory PostUpdateRequest.fromJson(Map<String, dynamic> json) =>
