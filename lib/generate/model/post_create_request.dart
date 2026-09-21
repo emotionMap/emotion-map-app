@@ -11,8 +11,16 @@ part 'post_create_request.g.dart';
 @freezed
 abstract class PostCreateRequest with _$PostCreateRequest {
   const factory PostCreateRequest({
-    /// 소셜 로그인 제공자
-    @JsonKey(name: r'provider') String? provider,
+    /// 위치 ID
+    @JsonKey(name: r'locationId') required int locationId,
+
+    /// 감정 태그 ID 목록
+    @JsonKey(name: r'emotionIds') required List<int> emotionIds,
+
+    /// 본문 (선택)
+    @JsonKey(name: r'content') String? content,
+    @JsonKey(name: r'userId') int? userId,
+    @JsonKey(name: r'postId') int? postId,
   }) = _PostCreateRequest;
 
   factory PostCreateRequest.fromJson(Map<String, dynamic> json) =>
