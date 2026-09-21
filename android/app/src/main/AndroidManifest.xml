@@ -4,7 +4,8 @@
     <application
         android:label="@string/APP_NAME"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
 
         <meta-data
             android:name="com.naver.sdk.clientId"

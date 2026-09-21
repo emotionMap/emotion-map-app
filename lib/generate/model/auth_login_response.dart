@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:emotion_map_app/generate/model/jwt_token.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth_login_response.freezed.dart';
@@ -11,34 +12,13 @@ part 'auth_login_response.g.dart';
 @freezed
 abstract class AuthLoginResponse with _$AuthLoginResponse {
   const factory AuthLoginResponse({
-    /// 소셜 제공자
-    @JsonKey(name: r'provider') String? provider,
+    /// 위치 설정 완료 여부 - false면 /users/me/location 호출 전까지 다른 API 사용 불가
+    @JsonKey(name: r'locationSet') bool? locationSet,
 
-    /// 소셜 사용자 ID
-    @JsonKey(name: r'providerUserId') String? providerUserId,
-
-    /// 사용자 상태
-    @JsonKey(name: r'status') AuthLoginResponseStatusEnum? status,
+    /// JWT 토큰
+    @JsonKey(name: r'token') JWTToken? token,
   }) = _AuthLoginResponse;
 
   factory AuthLoginResponse.fromJson(Map<String, dynamic> json) =>
       _$AuthLoginResponseFromJson(json);
-}
-
-/// 사용자 상태
-enum AuthLoginResponseStatusEnum {
-  /// 사용자 상태
-  @JsonValue(r'REGISTERED')
-  registered(r'REGISTERED'),
-
-  /// 사용자 상태
-  @JsonValue(r'UNREGISTERED')
-  unregistered(r'UNREGISTERED');
-
-  const AuthLoginResponseStatusEnum(this.value);
-
-  final String value;
-
-  @override
-  String toString() => value;
 }

@@ -6,14 +6,14 @@ import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:emotion_map_app/generate/model/auth_login_request.dart';
 
-part 'class1_api_api.g.dart';
+part 'api_api.g.dart';
 
 @RestApi()
-abstract class Class1APIApi {
-  factory Class1APIApi(Dio dio, {String? baseUrl}) = _Class1APIApi;
+abstract class APIApi {
+  factory APIApi(Dio dio, {String? baseUrl}) = _APIApi;
 
   /// 토큰발급 API
-  /// 1 넣어서 사용하시면 됩니다.
+  /// 1 넣어서 사용하시면 됩니다. 실제 users 테이블의 location_id 여부가 토큰의 locationSet 값에 반영됩니다.
   ///
   /// Parameters:
   /// * [userId]

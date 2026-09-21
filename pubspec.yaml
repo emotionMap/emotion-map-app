@@ -44,6 +44,7 @@ dependencies:
   # Util
   flutter_dotenv: ^5.2.1
   collection: ^1.19.1
+  uuid: ^4.5.2
 
   # Native Util
   url_launcher: ^6.3.2
@@ -89,12 +90,6 @@ flutter:
   fonts:
     - family: NotoSansKR
       fonts:
-        - asset: assets/font/NotoSansKR-Thin.ttf
-          weight: 100
-        - asset: assets/font/NotoSansKR-ExtraLight.ttf
-          weight: 200
-        - asset: assets/font/NotoSansKR-Light.ttf
-          weight: 300
         - asset: assets/font/NotoSansKR-Regular.ttf
           weight: 400
         - asset: assets/font/NotoSansKR-Medium.ttf
@@ -103,7 +98,3 @@ flutter:
           weight: 600
         - asset: assets/font/NotoSansKR-Bold.ttf
           weight: 700
-        - asset: assets/font/NotoSansKR-ExtraBold.ttf
-          weight: 800
-        - asset: assets/font/NotoSansKR-Black.ttf
-          weight: 900

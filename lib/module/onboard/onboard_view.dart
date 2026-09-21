@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:emotion_map_app/asset/index.dart';
 import 'package:emotion_map_app/module/onboard/onboard_provider.dart';
+import 'package:emotion_map_app/provider/router_provider.dart';
 import 'package:emotion_map_app/style/index.dart';
 import 'package:emotion_map_app/widget/index.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,24 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 @RoutePage()
 class OnboardView extends HookConsumerWidget {
   const OnboardView({super.key});
+
+  Future<void> _onStart(BuildContext context, WidgetRef ref) async {
+    try {
+      final locationSet = await startAnonymousLogin(ref);
+      if (!context.mounted) return;
+
+      if (locationSet) {
+        context.router.replace(const MainTabsRoute());
+      } else {
+        context.router.replace(const LocationSetupRoute());
+      }
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('로그인에 실패했어요. 다시 시도해 주세요.')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,88 +45,44 @@ class OnboardView extends HookConsumerWidget {
             ),
             EMHeight(20),
             Text(
-              "지금 3초면 충분해요",
+              "3초면 충분해요",
               textAlign: .center,
               style: NotoSansKR.bold.set(
                 size: 18,
                 fixedHeight: 18,
-                color: Color(0xFF121212),
+                color: AppColors.textPrimary,
               ),
             ),
             EMHeight(8),
             Text(
-              "가입하고 당신의 감정을 공유하세요 ❤",
+              "지금 느끼는 감정을 자유롭게 남겨보세요.",
               textAlign: .center,
               style: NotoSansKR.regular.set(
                 size: 12,
-                fixedHeight: 14,
-                color: Color(0xFF474747),
+                fixedHeight: 16,
+                color: AppColors.textMuted,
               ),
             ),
-            EMHeight(19),
-            Expanded(
-              child: Column(
-                spacing: 18,
-                mainAxisAlignment: .center,
-                crossAxisAlignment: .stretch,
-                children: [
-                  (
-                    WebpImage.socialKakao,
-                    "카카오 로그인",
-                    Color(0xFFFEE500),
-                    Color(0xFF121212),
-                    () => onLogin(ref, .kakao),
+            Spacer(),
+            SizedBox(
+              height: 52,
+              child: ElevatedButton(
+                onPressed: () => _onStart(context, ref),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.accent,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  (
-                    WebpImage.socialNaver,
-                    "네이버 로그인",
-                    Color(0xFF03C75A),
-                    Colors.white,
-                    () => onLogin(ref, .naver),
-                  ),
-                  (
-                    WebpImage.socialApple,
-                    "애플 로그인",
-                    Color(0xFF050708),
-                    Colors.white,
-                    () {},
-                  ),
-                ].map((item) => OnboardButton(item: item)).toList(),
+                  elevation: 0,
+                ),
+                child: Text(
+                  "시작하기",
+                  style: NotoSansKR.semiBold.set(size: 16, fixedHeight: 16),
+                ),
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class OnboardButton extends StatelessWidget {
-  final (String, String, Color, Color, void Function()) item;
-
-  const OnboardButton({super.key, required this.item});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: item.$5,
-      child: Container(
-        height: 45,
-        decoration: BoxDecoration(borderRadius: .circular(6), color: item.$3),
-        child: Row(
-          mainAxisAlignment: .center,
-          spacing: 18,
-          children: [
-            EMImage(item.$1, size: 18),
-            Text(
-              item.$2,
-              style: NotoSansKR.regular.set(
-                size: 14,
-                fixedHeight: 18,
-                letterSpacing: 1,
-                color: item.$4,
-              ),
-            ),
+            EMHeight(24),
           ],
         ),
       ),

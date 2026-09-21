@@ -44,13 +44,17 @@ android {
         versionName = flutter.versionName
     }
 
+    // dotenv-kotlin은 상대경로를 JVM 작업 디렉터리(Gradle 데몬의 홈, ~/.gradle/daemon/<ver>) 기준으로 찾기 때문에
+    // "../" 같은 상대경로는 신뢰할 수 없다. Gradle이 보장하는 프로젝트 경로로 절대경로를 만든다.
+    val flutterProjectDir = rootProject.projectDir.parentFile
+
     val devEnv = dotenv {
-        directory = "../"
+        directory = flutterProjectDir.absolutePath
         filename = ".env.dev"
     }
 
     val prodEnv = dotenv {
-        directory = "../"
+        directory = flutterProjectDir.absolutePath
         filename = ".env"
     }
 
