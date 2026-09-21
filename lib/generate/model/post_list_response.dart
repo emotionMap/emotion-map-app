@@ -16,20 +16,17 @@ abstract class PostListResponse with _$PostListResponse {
     /// 포스트 아이디
     @JsonKey(name: r'postId') int? postId,
 
-    /// 유저 아이디
-    @JsonKey(name: r'userId') int? userId,
-
-    /// 닉네임
+    /// 이 스레드 내에서 부여된 익명 닉네임
     @JsonKey(name: r'nickname') String? nickname,
-
-    /// 작성자 프로필 이미지 URL
-    @JsonKey(name: r'profileImageUrl') String? profileImageUrl,
 
     /// 위치 아이디
     @JsonKey(name: r'locationId') int? locationId,
 
-    /// 위치
-    @JsonKey(name: r'locationName') String? locationName,
+    /// 시/도
+    @JsonKey(name: r'siDo') String? siDo,
+
+    /// 시/군/구
+    @JsonKey(name: r'siGunGu') String? siGunGu,
 
     /// 내용
     @JsonKey(name: r'content') String? content,
@@ -49,6 +46,9 @@ abstract class PostListResponse with _$PostListResponse {
     /// 내가 작성한 글인지 여부
     @JsonKey(name: r'isMine') bool? isMine,
 
+    /// 상태
+    @JsonKey(name: r'status') PostListResponseStatusEnum? status,
+
     /// 포스트 사진
     @JsonKey(name: r'imageList') List<Image>? imageList,
 
@@ -58,4 +58,22 @@ abstract class PostListResponse with _$PostListResponse {
 
   factory PostListResponse.fromJson(Map<String, dynamic> json) =>
       _$PostListResponseFromJson(json);
+}
+
+/// 상태
+enum PostListResponseStatusEnum {
+  /// 상태
+  @JsonValue(r'ACTIVE')
+  active(r'ACTIVE'),
+
+  /// 상태
+  @JsonValue(r'DELETED')
+  deleted(r'DELETED');
+
+  const PostListResponseStatusEnum(this.value);
+
+  final String value;
+
+  @override
+  String toString() => value;
 }
