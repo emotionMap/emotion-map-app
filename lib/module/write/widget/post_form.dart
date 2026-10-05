@@ -97,11 +97,9 @@ class PostForm extends HookConsumerWidget {
       emotionsLoading.value = true;
       try {
         emotions.value = await emotionService.getEmotions();
-      } catch (_) {
+      } catch (e) {
         if (context.mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('감정 목록을 불러오지 못했어요.')));
+          showErrorSnackBar(context, e, fallback: '감정 목록을 불러오지 못했어요.');
         }
       } finally {
         emotionsLoading.value = false;
@@ -120,9 +118,7 @@ class PostForm extends HookConsumerWidget {
         current.remove(id);
       } else {
         if (current.length >= _maxEmotionCount) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('감정은 최대 5개까지 선택할 수 있어요.')),
-          );
+          showAppSnackBar(context, '감정은 최대 5개까지 선택할 수 있어요.');
           return;
         }
         current.add(id);
@@ -207,7 +203,7 @@ class PostForm extends HookConsumerWidget {
           emotionsLoading.value
               ? const Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Center(child: CircularProgressIndicator()),
+                  child: EMLoadingIndicator(),
                 )
               : GridView.builder(
                   shrinkWrap: true,
@@ -253,7 +249,7 @@ class PostForm extends HookConsumerWidget {
                             children: [
                               Text(
                                 emotion.emoji ?? '',
-                                style: const TextStyle(fontSize: 15),
+                                style: const TextStyle(fontSize: AppEmojiSize.md),
                               ),
                               const EMWidth(4),
                               Flexible(
@@ -321,14 +317,7 @@ class PostForm extends HookConsumerWidget {
                 elevation: 0,
               ),
               child: submitting.value
-                  ? const SizedBox(
-                      width: 22,
-                      height: 22,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2.4,
-                        color: Colors.white,
-                      ),
-                    )
+                  ? const EMInlineSpinner(color: Colors.white)
                   : Text(
                       submitLabel,
                       style: NotoSansKR.semiBold.set(size: 16, fixedHeight: 16),

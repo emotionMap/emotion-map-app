@@ -39,7 +39,7 @@ class PostCard extends StatelessWidget {
                     color: AppColors.textPrimary,
                   ),
                 ),
-                const EMWidth(6),
+                const EMWidth(4),
                 Text(
                   '·',
                   style: NotoSansKR.regular.set(
@@ -47,9 +47,9 @@ class PostCard extends StatelessWidget {
                     color: AppColors.textMuted,
                   ),
                 ),
-                const EMWidth(6),
+                const EMWidth(4),
                 Text(
-                  absoluteTime(post.createdAt),
+                  displayTime(post.createdAt),
                   style: NotoSansKR.regular.set(
                     size: 12,
                     color: AppColors.textMuted,
@@ -66,12 +66,12 @@ class PostCard extends StatelessWidget {
                   ),
               ],
             ),
-            const EMHeight(10),
+            const EMHeight(8),
             if ((post.emotionList ?? []).isNotEmpty) ...[
               EmotionChipRow(
                 emotions: post.emotionList!,
                 showName: true,
-                emojiSize: 16,
+                emojiSize: AppEmojiSize.md,
               ),
               const EMHeight(8),
             ],
@@ -87,7 +87,7 @@ class PostCard extends StatelessWidget {
                 ),
               ),
             if (images.isNotEmpty) ...[
-              const EMHeight(10),
+              const EMHeight(8),
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: EMNetworkImage(

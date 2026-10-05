@@ -12,7 +12,6 @@ class AppColors {
   static const textPrimary = Color(0xFF242019);
   static const textMuted = Color(0xFF9C948C);
   static const accent = Color(0xFF242019);
-  static const accentDark = Color(0xFF242019);
   static const error = Color(0xFFB3453A);
 
   /// 콘텐츠 카드/입력창/하단탭 등 "표면"이 배경과 구분되도록 쓰는 공용 경계선 색.

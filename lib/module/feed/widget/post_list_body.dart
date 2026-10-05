@@ -59,7 +59,7 @@ class PostListBody extends HookConsumerWidget {
         if (!scrollController.hasClients) return;
         scrollController.animateTo(
           0,
-          duration: const Duration(milliseconds: 300),
+          duration: AppDurations.standard,
           curve: Curves.easeOut,
         );
       }
@@ -75,7 +75,7 @@ class PostListBody extends HookConsumerWidget {
     }
 
     if (state.initialLoading) {
-      return const Center(child: CircularProgressIndicator());
+      return const EMLoadingIndicator();
     }
 
     return RefreshIndicator(
@@ -107,13 +107,7 @@ class PostListBody extends HookConsumerWidget {
                 if (index >= state.posts.length) {
                   return const Padding(
                     padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Center(
-                      child: SizedBox(
-                        width: 22,
-                        height: 22,
-                        child: CircularProgressIndicator(strokeWidth: 2.4),
-                      ),
-                    ),
+                    child: Center(child: EMInlineSpinner()),
                   );
                 }
                 final post = state.posts[index];

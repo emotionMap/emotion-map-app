@@ -27,7 +27,7 @@ class CommentsService {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       debugPrint(e.toString());
-      return Future.error("error");
+      return Future.error("");
     }
   }
 
@@ -38,7 +38,7 @@ class CommentsService {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       debugPrint(e.toString());
-      return Future.error("error");
+      return Future.error("");
     }
   }
 }

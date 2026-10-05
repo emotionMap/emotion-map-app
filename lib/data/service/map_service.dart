@@ -17,7 +17,7 @@ class MapService {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       debugPrint(e.toString());
-      return Future.error("error");
+      return Future.error("");
     }
   }
 }

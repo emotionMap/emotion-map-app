@@ -51,15 +51,11 @@ class PostEditView extends HookConsumerWidget {
             );
             postsChangedSignal.value++;
             if (!context.mounted) return;
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(const SnackBar(content: Text('게시글이 수정됐어요.')));
+            showAppSnackBar(context, '게시글이 수정됐어요.');
             context.router.maybePop(true);
-          } catch (_) {
+          } catch (e) {
             if (context.mounted) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(const SnackBar(content: Text('게시글 수정에 실패했어요.')));
+              showErrorSnackBar(context, e, fallback: '게시글 수정에 실패했어요.');
             }
           }
         },

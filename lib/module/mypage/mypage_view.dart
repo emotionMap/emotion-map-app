@@ -50,11 +50,9 @@ class _MyPageBody extends HookConsumerWidget {
       statsLoading.value = true;
       try {
         stats.value = await postsService.myEmotionStats(days.value);
-      } catch (_) {
+      } catch (e) {
         if (context.mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('통계를 불러오지 못했어요.')));
+          showErrorSnackBar(context, e, fallback: '통계를 불러오지 못했어요.');
         }
       } finally {
         statsLoading.value = false;
@@ -93,7 +91,7 @@ class _MyPageBody extends HookConsumerWidget {
         if (!scrollController.hasClients) return;
         scrollController.animateTo(
           0,
-          duration: const Duration(milliseconds: 300),
+          duration: AppDurations.standard,
           curve: Curves.easeOut,
         );
       }
@@ -149,36 +147,39 @@ class _MyPageBody extends HookConsumerWidget {
                             selected: days.value == 7,
                             onTap: () => days.value = 7,
                           ),
-                          const EMWidth(6),
+                          const EMWidth(4),
                           DaysChip(
                             label: '30일',
                             selected: days.value == 30,
                             onTap: () => days.value = 30,
                           ),
                           const EMWidth(4),
-                          InkWell(
-                            borderRadius: BorderRadius.circular(999),
-                            onTap: () =>
-                                statsExpanded.value = !statsExpanded.value,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4),
-                              child: Icon(
-                                statsExpanded.value
-                                    ? Icons.keyboard_arrow_up_rounded
-                                    : Icons.keyboard_arrow_down_rounded,
-                                size: 20,
-                                color: AppColors.textMuted,
+                          Tooltip(
+                            message: statsExpanded.value ? '통계 접기' : '통계 펼치기',
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(999),
+                              onTap: () =>
+                                  statsExpanded.value = !statsExpanded.value,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: Icon(
+                                  statsExpanded.value
+                                      ? Icons.keyboard_arrow_up_rounded
+                                      : Icons.keyboard_arrow_down_rounded,
+                                  size: 20,
+                                  color: AppColors.textMuted,
+                                ),
                               ),
                             ),
                           ),
                         ],
                       ),
                       if (statsExpanded.value) ...[
-                        const EMHeight(14),
+                        const EMHeight(16),
                         if (statsLoading.value)
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 20),
-                            child: Center(child: CircularProgressIndicator()),
+                            child: EMLoadingIndicator(),
                           )
                         else if (stats.value.isEmpty)
                           Padding(
@@ -257,7 +258,7 @@ class _MyPageBody extends HookConsumerWidget {
               const SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 40),
-                  child: Center(child: CircularProgressIndicator()),
+                  child: EMLoadingIndicator(),
                 ),
               )
             else if (postsState.posts.isEmpty)
@@ -286,15 +287,7 @@ class _MyPageBody extends HookConsumerWidget {
                     if (index >= postsState.posts.length) {
                       return const Padding(
                         padding: EdgeInsets.symmetric(vertical: 20),
-                        child: Center(
-                          child: SizedBox(
-                            width: 22,
-                            height: 22,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.4,
-                            ),
-                          ),
-                        ),
+                        child: Center(child: EMInlineSpinner()),
                       );
                     }
                     final post = postsState.posts[index];
@@ -371,7 +364,7 @@ class _EmotionStatRow extends StatelessWidget {
       height: 22,
       child: Row(
         children: [
-          Text(stat.emoji ?? '', style: const TextStyle(fontSize: 18)),
+          Text(stat.emoji ?? '', style: const TextStyle(fontSize: AppEmojiSize.lg)),
           const EMWidth(8),
           SizedBox(
             width: 44,

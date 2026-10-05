@@ -34,11 +34,9 @@ class PostDetailView extends HookConsumerWidget {
       try {
         final result = await postsService.getPost(postId);
         detail.value = result;
-      } catch (_) {
+      } catch (e) {
         if (context.mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('게시글을 불러오지 못했어요.')));
+          showErrorSnackBar(context, e, fallback: '게시글을 불러오지 못했어요.');
         }
       } finally {
         initialLoading.value = false;
@@ -65,11 +63,9 @@ class PostDetailView extends HookConsumerWidget {
             likeCount: (post.likeCount ?? 0) + delta,
           ),
         );
-      } catch (_) {
+      } catch (e) {
         if (context.mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('좋아요 처리에 실패했어요.')));
+          showErrorSnackBar(context, e, fallback: '좋아요 처리에 실패했어요.');
         }
       }
     }
@@ -90,11 +86,9 @@ class PostDetailView extends HookConsumerWidget {
         if (!context.mounted) return;
         FocusScope.of(context).unfocus();
         await fetchDetail();
-      } catch (_) {
+      } catch (e) {
         if (context.mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('댓글 작성에 실패했어요.')));
+          showErrorSnackBar(context, e, fallback: '댓글 작성에 실패했어요.');
         }
       } finally {
         submitting.value = false;
@@ -153,15 +147,11 @@ class PostDetailView extends HookConsumerWidget {
         await postsService.deletePost(postId);
         postsChangedSignal.value++;
         if (!context.mounted) return;
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('게시글을 삭제했어요.')));
+        showAppSnackBar(context, '게시글을 삭제했어요.');
         context.router.maybePop();
-      } catch (_) {
+      } catch (e) {
         if (context.mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('게시글 삭제에 실패했어요.')));
+          showErrorSnackBar(context, e, fallback: '게시글 삭제에 실패했어요.');
         }
       }
     }
@@ -230,6 +220,7 @@ class PostDetailView extends HookConsumerWidget {
                 top: 40,
                 right: 16,
                 child: IconButton(
+                  tooltip: '닫기',
                   icon: const Icon(Icons.close, color: Colors.white),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
@@ -246,7 +237,7 @@ class PostDetailView extends HookConsumerWidget {
     return Scaffold(
       appBar: const EMTopBar(title: '게시글'),
       body: initialLoading.value
-          ? const Center(child: CircularProgressIndicator())
+          ? const EMLoadingIndicator()
           : post == null
           ? Center(
               child: Text(
@@ -276,7 +267,7 @@ class PostDetailView extends HookConsumerWidget {
                                 color: AppColors.textPrimary,
                               ),
                             ),
-                            const EMWidth(6),
+                            const EMWidth(4),
                             Text(
                               '·',
                               style: NotoSansKR.regular.set(
@@ -284,9 +275,9 @@ class PostDetailView extends HookConsumerWidget {
                                 color: AppColors.textMuted,
                               ),
                             ),
-                            const EMWidth(6),
+                            const EMWidth(4),
                             Text(
-                              absoluteTime(post.createdAt),
+                              displayTime(post.createdAt),
                               style: NotoSansKR.regular.set(
                                 size: 12,
                                 color: AppColors.textMuted,
@@ -303,13 +294,13 @@ class PostDetailView extends HookConsumerWidget {
                               ),
                           ],
                         ),
-                        const EMHeight(14),
+                        const EMHeight(16),
                         if ((post.emotionList ?? []).isNotEmpty) ...[
                           EmotionChipRow(
                             emotions: post.emotionList!,
                             showName: true,
                           ),
-                          const EMHeight(14),
+                          const EMHeight(16),
                         ],
                         if ((post.content ?? '').isNotEmpty)
                           Text(
@@ -321,7 +312,7 @@ class PostDetailView extends HookConsumerWidget {
                             ),
                           ),
                         if ((post.imageList ?? []).isNotEmpty) ...[
-                          const EMHeight(14),
+                          const EMHeight(16),
                           SizedBox(
                             height: 200,
                             child: ListView.separated(
@@ -399,15 +390,18 @@ class PostDetailView extends HookConsumerWidget {
                             ),
                             if (post.isMine == true) ...[
                               const Spacer(),
-                              InkWell(
-                                onTap: openPostMenu,
-                                borderRadius: BorderRadius.circular(999),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(4),
-                                  child: Icon(
-                                    Icons.more_horiz,
-                                    size: 20,
-                                    color: AppColors.textMuted,
+                              Tooltip(
+                                message: '더보기',
+                                child: InkWell(
+                                  onTap: openPostMenu,
+                                  borderRadius: BorderRadius.circular(999),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: Icon(
+                                      Icons.more_horiz,
+                                      size: 20,
+                                      color: AppColors.textMuted,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -463,16 +457,19 @@ class PostDetailView extends HookConsumerWidget {
                                   '${replyTarget.value!.nickname ?? '익명'}님에게 답글 남기는 중',
                                   style: NotoSansKR.medium.set(
                                     size: 12,
-                                    color: AppColors.accentDark,
+                                    color: AppColors.accent,
                                   ),
                                 ),
-                                const EMWidth(6),
-                                InkWell(
-                                  onTap: () => replyTarget.value = null,
-                                  child: Icon(
-                                    Icons.close,
-                                    size: 14,
-                                    color: AppColors.textMuted,
+                                const EMWidth(4),
+                                Tooltip(
+                                  message: '답글 취소',
+                                  child: InkWell(
+                                    onTap: () => replyTarget.value = null,
+                                    child: Icon(
+                                      Icons.close,
+                                      size: 14,
+                                      color: AppColors.textMuted,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -511,6 +508,7 @@ class PostDetailView extends HookConsumerWidget {
                             ),
                             const EMWidth(8),
                             IconButton(
+                              tooltip: '댓글 등록',
                               onPressed: submitting.value
                                   ? null
                                   : onSubmitComment,

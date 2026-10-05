@@ -1,5 +1,16 @@
 part of 'index.dart';
 
+/// 이모지 전용 Text의 fontSize 스케일. 이모지는 NotoSansKR 글꼴로 그려지지 않으므로
+/// [NotoSansKR] 스타일 대신 raw [TextStyle(fontSize: ...)]를 쓰지만, 크기 값만큼은
+/// 화면마다 임의 리터럴이 아니라 여기서 참조한다.
+class AppEmojiSize {
+  AppEmojiSize._();
+
+  static const sm = 14.0;
+  static const md = 16.0;
+  static const lg = 18.0;
+}
+
 class NotoSansKR {
   NotoSansKR._();
 

@@ -47,11 +47,9 @@ class _MapBody extends HookConsumerWidget {
       loading.value = true;
       try {
         regions.value = await mapService.getRegionSummaries();
-      } catch (_) {
+      } catch (e) {
         if (context.mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('지도를 불러오지 못했어요.')));
+          showErrorSnackBar(context, e, fallback: '지도를 불러오지 못했어요.');
         }
       } finally {
         loading.value = false;
@@ -99,6 +97,7 @@ class _MapBody extends HookConsumerWidget {
                             ),
                           ),
                           IconButton(
+                            tooltip: '새로고침',
                             onPressed: loading.value ? null : fetch,
                             icon: Icon(
                               Icons.refresh_rounded,
@@ -111,11 +110,7 @@ class _MapBody extends HookConsumerWidget {
                   ),
                   Expanded(
                     child: loading.value
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              color: theme.accentIconColor,
-                            ),
-                          )
+                        ? EMLoadingIndicator(color: theme.accentIconColor)
                         : SeoulMap(regions: regions.value, theme: theme),
                   ),
                 ],

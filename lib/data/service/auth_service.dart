@@ -41,7 +41,7 @@ class AuthService {
       );
       final data = response.data;
       if (data == null) {
-        return Future.error("error");
+        return Future.error("");
       }
 
       final token = data.token;
@@ -54,7 +54,7 @@ class AuthService {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       debugPrint(e.toString());
-      return Future.error("error");
+      return Future.error("");
     }
   }
 

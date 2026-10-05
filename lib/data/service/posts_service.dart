@@ -29,7 +29,7 @@ class PostsService {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       debugPrint(e.toString());
-      return Future.error("error");
+      return Future.error("");
     }
   }
 
@@ -44,7 +44,7 @@ class PostsService {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       debugPrint(e.toString());
-      return Future.error("error");
+      return Future.error("");
     }
   }
 
@@ -52,13 +52,13 @@ class PostsService {
     try {
       final response = await _postsApi.getPost(postId: postId);
       final data = response.data;
-      if (data == null) return Future.error("error");
+      if (data == null) return Future.error("");
       return data;
     } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       debugPrint(e.toString());
-      return Future.error("error");
+      return Future.error("");
     }
   }
 
@@ -71,7 +71,7 @@ class PostsService {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       debugPrint(e.toString());
-      return Future.error("error");
+      return Future.error("");
     }
   }
 
@@ -93,7 +93,7 @@ class PostsService {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       debugPrint(e.toString());
-      return Future.error("error");
+      return Future.error("");
     }
   }
 
@@ -116,7 +116,7 @@ class PostsService {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       debugPrint(e.toString());
-      return Future.error("error");
+      return Future.error("");
     }
   }
 
@@ -127,7 +127,7 @@ class PostsService {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       debugPrint(e.toString());
-      return Future.error("error");
+      return Future.error("");
     }
   }
 
@@ -139,7 +139,7 @@ class PostsService {
       return Future.error(getErrorMessage(e));
     } catch (e) {
       debugPrint(e.toString());
-      return Future.error("error");
+      return Future.error("");
     }
   }
 }

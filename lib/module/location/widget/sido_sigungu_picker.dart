@@ -1,6 +1,7 @@
 import 'package:emotion_map_app/data/provider/service_provider.dart';
 import 'package:emotion_map_app/generate/model/sigungu_response.dart';
 import 'package:emotion_map_app/style/index.dart';
+import 'package:emotion_map_app/widget/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -32,11 +33,9 @@ class SiDoSiGunGuPicker extends HookConsumerWidget {
       try {
         final list = await locationService.getSigunguList(siDo);
         sigunguList.value = list;
-      } catch (_) {
+      } catch (e) {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('지역 목록을 불러오지 못했어요.')),
-          );
+          showErrorSnackBar(context, e, fallback: '지역 목록을 불러오지 못했어요.');
         }
       } finally {
         loadingSigungu.value = false;
@@ -51,7 +50,7 @@ class SiDoSiGunGuPicker extends HookConsumerWidget {
     }
 
     if (sidoSnapshot.connectionState != ConnectionState.done) {
-      return const Center(child: CircularProgressIndicator());
+      return const EMLoadingIndicator();
     }
 
     return Row(
@@ -73,7 +72,7 @@ class SiDoSiGunGuPicker extends HookConsumerWidget {
         const VerticalDivider(width: 1),
         Expanded(
           child: loadingSigungu.value
-              ? const Center(child: CircularProgressIndicator())
+              ? const EMLoadingIndicator()
               : ListView(
                   children: sigunguList.value
                       .map(

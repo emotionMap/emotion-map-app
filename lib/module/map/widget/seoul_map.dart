@@ -6,6 +6,7 @@ import 'package:emotion_map_app/module/map/data/seoul_districts.dart';
 import 'package:emotion_map_app/module/map/map_theme.dart';
 import 'package:emotion_map_app/provider/router_provider.dart';
 import 'package:emotion_map_app/style/index.dart';
+import 'package:emotion_map_app/widget/index.dart';
 import 'package:flutter/material.dart';
 
 /// 서울 25개 구를 실제 경계 모양 그대로 그려서 탭할 수 있는 지도.
@@ -48,9 +49,7 @@ class _SeoulMapState extends State<SeoulMap> {
     final data = _dataFor(district.name);
     final locationId = data?.locationId;
     if (locationId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${district.name}엔 아직 등록된 감정이 없어요')),
-      );
+      showAppSnackBar(context, '${district.name}엔 아직 등록된 감정이 없어요');
       return;
     }
     context.router.push(
@@ -256,7 +255,7 @@ class _SeoulMapPainter extends CustomPainter {
               (e) => TextPainter(
                 text: TextSpan(
                   text: e.emoji ?? '',
-                  style: const TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: AppEmojiSize.sm),
                 ),
                 textDirection: TextDirection.ltr,
               )..layout(),

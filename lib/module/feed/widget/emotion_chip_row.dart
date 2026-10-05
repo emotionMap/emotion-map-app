@@ -15,7 +15,7 @@ class EmotionChipRow extends StatelessWidget {
     super.key,
     required this.emotions,
     this.showName = false,
-    this.emojiSize = 16,
+    this.emojiSize = AppEmojiSize.md,
   });
 
   @override
@@ -27,7 +27,7 @@ class EmotionChipRow extends StatelessWidget {
       child: Row(
         children: [
           for (var i = 0; i < emotions.length; i++) ...[
-            if (i > 0) const EMWidth(6),
+            if (i > 0) const EMWidth(4),
             _EmotionChip(
               emotion: emotions[i],
               showName: showName,
@@ -75,7 +75,7 @@ class _EmotionChip extends StatelessWidget {
             name,
             style: NotoSansKR.medium.set(
               size: 12,
-              color: AppColors.accentDark,
+              color: AppColors.accent,
             ),
           ),
         ],

@@ -21,11 +21,9 @@ class OnboardView extends HookConsumerWidget {
       } else {
         context.router.replace(const LocationSetupRoute());
       }
-    } catch (_) {
+    } catch (e) {
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('로그인에 실패했어요. 다시 시도해 주세요.')),
-      );
+      showErrorSnackBar(context, e, fallback: '로그인에 실패했어요. 다시 시도해 주세요.');
     }
   }
 

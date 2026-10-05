@@ -43,9 +43,9 @@ class CommentTile extends StatelessWidget {
                       color: AppColors.textPrimary,
                     ),
                   ),
-                  const EMWidth(6),
+                  const EMWidth(4),
                   Text(
-                    relativeTime(comment.createdAt),
+                    displayTime(comment.createdAt),
                     style: NotoSansKR.regular.set(
                       size: 11,
                       color: AppColors.textMuted,
@@ -73,7 +73,7 @@ class CommentTile extends StatelessWidget {
                     '답글',
                     style: NotoSansKR.medium.set(
                       size: 12,
-                      color: AppColors.accentDark,
+                      color: AppColors.accent,
                     ),
                   ),
                 ),
