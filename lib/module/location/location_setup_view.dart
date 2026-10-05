@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:emotion_map_app/data/provider/service_provider.dart';
 import 'package:emotion_map_app/module/location/widget/sido_sigungu_picker.dart';
+import 'package:emotion_map_app/provider/app_provider.dart';
 import 'package:emotion_map_app/provider/router_provider.dart';
 import 'package:emotion_map_app/style/index.dart';
+import 'package:emotion_map_app/util/storage_keys.dart';
+import 'package:emotion_map_app/widget/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,22 +19,25 @@ class LocationSetupView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final locationService = ref.read(locationServiceProvider);
+    final localStorage = ref.read(localStorageProvider);
     final selectedLocationId = useState<int?>(null);
+    final selectedLocationLabel = useState<String?>(null);
 
     Future<void> onConfirm() async {
       final locationId = selectedLocationId.value;
-      if (locationId == null) return;
+      final locationLabel = selectedLocationLabel.value;
+      if (locationId == null || locationLabel == null) return;
 
       context.loaderOverlay.show();
       try {
         await locationService.setLocation(locationId);
+        await localStorage.setInt(lastWriteLocationIdKey, locationId);
+        await localStorage.setString(lastWriteLocationLabelKey, locationLabel);
         if (!context.mounted) return;
         context.router.replace(const MainTabsRoute());
-      } catch (_) {
+      } catch (e) {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('위치 설정에 실패했어요. 다시 시도해 주세요.')),
-          );
+          showErrorSnackBar(context, e, fallback: '위치 설정에 실패했어요. 다시 시도해 주세요.');
         }
       } finally {
         if (context.mounted) context.loaderOverlay.hide();
@@ -46,12 +52,12 @@ class LocationSetupView extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 12),
+              const EMHeight(12),
               Text(
                 '활동할 지역을 선택해 주세요',
                 style: NotoSansKR.bold.set(size: 17, color: AppColors.textPrimary),
               ),
-              const SizedBox(height: 4),
+              const EMHeight(4),
               Text(
                 '가입을 위한 마지막 한 단계예요.',
                 style: NotoSansKR.regular.set(
@@ -59,14 +65,16 @@ class LocationSetupView extends HookConsumerWidget {
                   color: AppColors.textMuted,
                 ),
               ),
-              const SizedBox(height: 16),
+              const EMHeight(16),
               Expanded(
                 child: SiDoSiGunGuPicker(
-                  onPicked: (locationId, _) =>
-                      selectedLocationId.value = locationId,
+                  onPicked: (locationId, label) {
+                    selectedLocationId.value = locationId;
+                    selectedLocationLabel.value = label;
+                  },
                 ),
               ),
-              const SizedBox(height: 12),
+              const EMHeight(12),
               SizedBox(
                 height: 52,
                 child: ElevatedButton(
@@ -90,7 +98,7 @@ class LocationSetupView extends HookConsumerWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              const EMHeight(16),
             ],
           ),
         ),

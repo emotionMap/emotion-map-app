@@ -89,18 +89,12 @@ android {
             applicationIdSuffix = ".dev"
 
             resValue("string", "APP_NAME", devEnv.get("APP_NAME", ""))
-            resValue("string", "KAKAO_SCHEME", devEnv.get("KAKAO_SCHEME", ""))
-            resValue("string", "NAVER_CLIENT_ID", devEnv.get("NAVER_CLIENT_ID", ""))
-            resValue("string", "NAVER_CLIENT_SECRET", devEnv.get("NAVER_CLIENT_SECRET", ""))
         }
 
         create("prod") {
             dimension = "flavor"
 
             resValue("string", "APP_NAME", prodEnv.get("APP_NAME", ""))
-            resValue("string", "KAKAO_SCHEME", prodEnv.get("KAKAO_SCHEME", ""))
-            resValue("string", "NAVER_CLIENT_ID", devEnv.get("NAVER_CLIENT_ID", ""))
-            resValue("string", "NAVER_CLIENT_SECRET", devEnv.get("NAVER_CLIENT_SECRET", ""))
         }
     }
 }
