@@ -25,7 +25,7 @@ class PostEditView extends HookConsumerWidget {
     ].where((e) => (e ?? '').isNotEmpty).join(' ');
 
     return Scaffold(
-      appBar: const EMTopBar(title: '게시글 수정'),
+      appBar: const EMTopBar(title: '수정'),
       body: PostForm(
         initialContent: post.content ?? '',
         initialLocationId: post.locationId,
@@ -51,11 +51,11 @@ class PostEditView extends HookConsumerWidget {
             );
             postsChangedSignal.value++;
             if (!context.mounted) return;
-            showAppSnackBar(context, '게시글이 수정됐어요.');
+            showAppSnackBar(context, '감정 기록을 수정했어요.');
             context.router.maybePop(true);
           } catch (e) {
             if (context.mounted) {
-              showErrorSnackBar(context, e, fallback: '게시글 수정에 실패했어요.');
+              showErrorSnackBar(context, e, fallback: '감정 기록 수정에 실패했어요.');
             }
           }
         },

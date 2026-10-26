@@ -24,7 +24,7 @@ class PostListBody extends HookConsumerWidget {
     super.key,
     required this.fetchPage,
     this.pageSize = 20,
-    this.emptyText = '아직 게시글이 없어요',
+    this.emptyText = '아직 감정 기록이 없어요',
     this.scrollToTopSignal,
   });
 

@@ -32,7 +32,7 @@ class _WriteBody extends HookConsumerWidget {
     final localStorage = ref.read(localStorageProvider);
 
     return Scaffold(
-      appBar: const EMTopBar(title: '글쓰기'),
+      appBar: const EMTopBar(title: '감정 기록'),
       body: PostForm(
         initialLocationId: localStorage.getInt(lastWriteLocationIdKey),
         initialLocationLabel: localStorage.getString(
@@ -61,11 +61,11 @@ class _WriteBody extends HookConsumerWidget {
                   locationLabel,
                 );
                 if (!context.mounted) return;
-                showAppSnackBar(context, '게시글이 등록됐어요.');
+                showAppSnackBar(context, '감정을 기록했어요.');
                 AutoTabsRouter.of(context).setActiveIndex(0);
               } catch (e) {
                 if (context.mounted) {
-                  showErrorSnackBar(context, e, fallback: '게시글 등록에 실패했어요.');
+                  showErrorSnackBar(context, e, fallback: '감정 기록에 실패했어요.');
                 }
               }
             },

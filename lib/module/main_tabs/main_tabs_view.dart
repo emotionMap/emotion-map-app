@@ -36,10 +36,10 @@ class MainTabsView extends StatelessWidget {
               type: BottomNavigationBarType.fixed,
               backgroundColor: Colors.transparent,
               elevation: 0,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
               selectedItemColor: AppColors.accent,
               unselectedItemColor: AppColors.textMuted,
-              selectedLabelStyle: NotoSansKR.medium.set(size: 11),
-              unselectedLabelStyle: NotoSansKR.regular.set(size: 11),
               items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined),
@@ -49,7 +49,7 @@ class MainTabsView extends StatelessWidget {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.edit_outlined),
                   activeIcon: Icon(Icons.edit),
-                  label: '글쓰기',
+                  label: '감정 기록',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.map_outlined),
