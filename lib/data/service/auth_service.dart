@@ -53,7 +53,7 @@ class AuthService {
     } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint("[Error] 로그인 중 알 수 없는 예외 - ${e.runtimeType}: $e");
       return Future.error("");
     }
   }

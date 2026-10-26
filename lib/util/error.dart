@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// 빈 문자열을 돌려준다 - 디버그 코드(POST_NOT_FOUND 등)를 사용자에게 노출하지 않는다.
 String getErrorMessage(DioException e) {
   if (e.type == DioExceptionType.cancel) {
-    debugPrint("$e");
+    debugPrint("[Error] 요청 취소 - type: ${e.type}, message: ${e.message}");
     return "";
   }
   final errorResponseData = e.response?.data;
@@ -16,12 +16,18 @@ String getErrorMessage(DioException e) {
     try {
       final response = ErrorResponse.fromJson(errorResponseData);
       return response.error.message;
-    } catch (e) {
-      debugPrint("$e");
+    } catch (parseError) {
+      debugPrint(
+        "[Error] 응답 파싱 실패 - status: ${e.response?.statusCode}, "
+        "data: $errorResponseData, parseError: $parseError",
+      );
       return "";
     }
   } else {
-    debugPrint("$e");
+    debugPrint(
+      "[Error] 응답 없음 - type: ${e.type}, uri: ${e.requestOptions.uri}, "
+      "message: ${e.message}",
+    );
     return "";
   }
 }
