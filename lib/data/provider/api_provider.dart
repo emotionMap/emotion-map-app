@@ -4,6 +4,7 @@ import 'package:emotion_map_app/generate/api/comments_api.dart';
 import 'package:emotion_map_app/generate/api/emotion_api.dart';
 import 'package:emotion_map_app/generate/api/location_api.dart';
 import 'package:emotion_map_app/generate/api/map_api.dart';
+import 'package:emotion_map_app/generate/api/notifications_api.dart';
 import 'package:emotion_map_app/generate/api/posts_api.dart';
 import 'package:emotion_map_app/generate/api/users_api.dart';
 import 'package:emotion_map_app/provider/app_provider.dart';
@@ -65,4 +66,12 @@ EmotionApi emotionApi(Ref ref) {
   final apiUrl = ref.watch(apiUrlProvider);
 
   return EmotionApi(dio, baseUrl: apiUrl);
+}
+
+@Riverpod(keepAlive: true)
+NotificationsApi notificationsApi(Ref ref) {
+  final dio = ref.watch(dioProvider);
+  final apiUrl = ref.watch(apiUrlProvider);
+
+  return NotificationsApi(dio, baseUrl: apiUrl);
 }

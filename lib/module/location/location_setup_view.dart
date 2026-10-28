@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:emotion_map_app/data/provider/service_provider.dart';
 import 'package:emotion_map_app/module/location/widget/sido_sigungu_picker.dart';
@@ -33,6 +35,11 @@ class LocationSetupView extends HookConsumerWidget {
         await locationService.setLocation(locationId);
         await localStorage.setInt(lastWriteLocationIdKey, locationId);
         await localStorage.setString(lastWriteLocationLabelKey, locationLabel);
+
+        // 신규 가입자는 로그인 시점엔 위치 미설정 상태라 FCM 토큰 동기화가 막혀있었다 -
+        // 위치 설정이 끝난 지금 다시 시도한다 (실패해도 가입 흐름은 막지 않는다).
+        unawaited(ref.read(fcmServiceProvider).syncToken());
+
         if (!context.mounted) return;
         context.router.replace(const MainTabsRoute());
       } catch (e) {

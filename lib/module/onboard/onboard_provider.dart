@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:emotion_map_app/data/provider/service_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -10,6 +12,9 @@ Future<bool> startAnonymousLogin(WidgetRef ref) async {
   try {
     final authService = ref.read(authServiceProvider);
     final response = await authService.login();
+
+    // FCM 토큰 동기화는 로그인의 부가 효과 - 실패해도 로그인 흐름을 막지 않는다.
+    unawaited(ref.read(fcmServiceProvider).syncToken());
 
     return response.locationSet ?? false;
   } finally {

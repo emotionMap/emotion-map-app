@@ -14,6 +14,10 @@ class AppColors {
   static const accent = Color(0xFF242019);
   static const error = Color(0xFFB3453A);
 
+  /// 알림 뱃지 점 - error와 같은 경고색을 재사용해 "확인 필요"라는 의미를
+  /// 톤으로 통일한다. 안읽은 알림이 없으면 아예 그리지 않는다(색 변경 아님).
+  static const notificationDot = Color(0xFFB3453A);
+
   /// 콘텐츠 카드/입력창/하단탭 등 "표면"이 배경과 구분되도록 쓰는 공용 경계선 색.
   /// 화면마다 다른 투명도 값을 하드코딩하지 않고 이 토큰 하나로 통일한다.
   static Color get border => accent.withValues(alpha: 0.13);

@@ -60,7 +60,7 @@ abstract class PostsApi {
   });
 
   /// 포스트 리스트 조회
-  /// locationId 생략 시 내 계정 위치, 지정 시 그 지역으로 조회 (지도에서 지역 선택 시 사용)
+  /// locationId 생략 시 전체 피드, 지정 시 그 지역으로 필터링 (지도에서 지역 선택 시 사용)
   ///
   /// Parameters:
   /// * [page]

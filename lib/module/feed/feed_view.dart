@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:emotion_map_app/data/provider/service_provider.dart';
+import 'package:emotion_map_app/module/feed/widget/notification_bell_button.dart';
 import 'package:emotion_map_app/module/feed/widget/post_list_body.dart';
 import 'package:emotion_map_app/module/main_tabs/tab_index.dart';
 import 'package:emotion_map_app/module/main_tabs/tab_scroll_signals.dart';
@@ -30,7 +31,10 @@ class _FeedBody extends HookConsumerWidget {
     final postsService = ref.read(postsServiceProvider);
 
     return Scaffold(
-      appBar: const EMTopBar(title: '감정연결지도'),
+      appBar: const EMTopBar(
+        title: '감정연결지도',
+        actions: [NotificationBellButton()],
+      ),
       body: PostListBody(
         fetchPage: (page) => postsService.getPostList(page: page),
         scrollToTopSignal: feedScrollToTopSignal,

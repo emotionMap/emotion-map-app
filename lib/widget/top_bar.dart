@@ -38,7 +38,11 @@ class EMTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final IconData? icon;
 
-  const EMTopBar({super.key, required this.title, this.icon});
+  /// 화면별로 다른 우측 영역 액션(예: 피드의 알림 벨)을 꽂는 슬롯.
+  /// 특정 화면만 쓰는 요소를 이 공용 위젯에 직접 하드코딩하지 않기 위함.
+  final List<Widget>? actions;
+
+  const EMTopBar({super.key, required this.title, this.icon, this.actions});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -52,6 +56,7 @@ class EMTopBar extends StatelessWidget implements PreferredSizeWidget {
         icon: icon,
         color: AppColors.textPrimary,
       ),
+      actions: actions,
     );
   }
 }

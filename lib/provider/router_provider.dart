@@ -21,6 +21,8 @@ import 'package:emotion_map_app/module/map/map_view.dart';
 import 'package:emotion_map_app/module/map/region_feed_view.dart';
 // MyPage
 import 'package:emotion_map_app/module/mypage/mypage_view.dart';
+// Notification
+import 'package:emotion_map_app/module/notification/notification_view.dart';
 
 part 'router_provider.gr.dart';
 part 'router_provider.g.dart';
@@ -45,6 +47,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: PostDetailRoute.page),
     AutoRoute(page: PostEditRoute.page),
     AutoRoute(page: RegionFeedRoute.page),
+    AutoRoute(page: NotificationRoute.page),
   ];
 }
 

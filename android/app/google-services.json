@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "554763080848",
+    "project_id": "emotion-map-30c07",
+    "storage_bucket": "emotion-map-30c07.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554763080848:android:d17d8526b11773075fb415",
+        "android_client_info": {
+          "package_name": "com.emotionmap.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSZ88Li_PMg64bgxMwN0HWwUuqKYORrNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554763080848:android:1af940914cef6f1b5fb415",
+        "android_client_info": {
+          "package_name": "com.emotionmap.app.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSZ88Li_PMg64bgxMwN0HWwUuqKYORrNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

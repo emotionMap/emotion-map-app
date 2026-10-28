@@ -2,8 +2,10 @@ import 'package:emotion_map_app/data/provider/api_provider.dart';
 import 'package:emotion_map_app/data/service/auth_service.dart';
 import 'package:emotion_map_app/data/service/comments_service.dart';
 import 'package:emotion_map_app/data/service/emotion_service.dart';
+import 'package:emotion_map_app/data/service/fcm_service.dart';
 import 'package:emotion_map_app/data/service/location_service.dart';
 import 'package:emotion_map_app/data/service/map_service.dart';
+import 'package:emotion_map_app/data/service/notification_service.dart';
 import 'package:emotion_map_app/data/service/posts_service.dart';
 import 'package:emotion_map_app/provider/app_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -53,4 +55,18 @@ EmotionService emotionService(Ref ref) {
   final api = ref.watch(emotionApiProvider);
 
   return EmotionService(api);
+}
+
+@Riverpod(keepAlive: true)
+NotificationService notificationService(Ref ref) {
+  final api = ref.watch(notificationsApiProvider);
+
+  return NotificationService(api);
+}
+
+@Riverpod(keepAlive: true)
+FcmService fcmService(Ref ref) {
+  final usersApi = ref.watch(usersApiProvider);
+
+  return FcmService(usersApi);
 }
