@@ -18,7 +18,6 @@
 - `lib/module/location/` — 위치 설정은 최초 필수 온보딩 단계. 백엔드 JWT의 `locationSet` 클레임으로 게이팅됨.
 - `lib/data/provider/dio_provider.dart` — 401 발생 시 `/auth/refresh` 재시도, 실패하면 저장된 deviceId로 재로그인 후 원 요청 재시도하는 인터셉터. 동시 401은 하나의 재인증 시도를 공유.
   - **알아둘 것**: 이 401→refresh→retry 흐름은 실제 30분 토큰 만료 상황에서 end-to-end로 검증된 적이 아직 없음 (2026-09-15 기준). 관련 이슈를 만지게 되면 로그인 후 30분 이상 대기 → 인증 필요 요청 트리거 → `/auth/refresh` 호출 및 재시도 성공 여부를 로그로 직접 확인할 것.
-- `pubspec.yaml`에 소셜 로그인 패키지(`flutter_naver_login`, `kakao_flutter_sdk_user`, `google_sign_in`, `sign_in_with_apple`)가 아직 남아있으나 코드에서 미사용 — 정리 대상 후보.
 
 ## 화면/모듈 구성 (`lib/module/`)
 
@@ -30,12 +29,20 @@
 - `post/` — 게시글 상세/수정 + 댓글. 댓글은 대댓글 무제한 중첩 트리 구조 (백엔드가 평탄한 쿼리 후 트리로 조립해서 응답)
 - `map/` — 지도: 서울 25개 구 실제 경계 표시, day/night 스타일 전환(지도 화면만 해당), 구 탭 시 해당 지역 피드로 이동(`region_feed_view`)
 - `mypage/` — 감정 통계(최근 7/30일) + 내가 쓴 글
+- `notification/` — 알림 목록 화면. 피드 상단바의 벨 아이콘(`feed/widget/notification_bell_button.dart`)에 안읽음 뱃지가 표시되며, FCM 포그라운드 수신 시 `feed/widget/notification_signal.dart`(`ValueNotifier`)로 즉시 뱃지를 갱신한다.
+
+## FCM 푸시 알림
+
+- `lib/data/service/fcm_service.dart` — 토큰 발급 + `PATCH /users/me/fcm-token`으로 서버 동기화. 로그인 성공 직후(`onboard_provider.dart`)와 `onTokenRefresh` 발생 시 호출된다. 권한 거부 등으로 실패해도 핵심 흐름(로그인)을 막지 않고 조용히 무시한다.
+- `main.dart`에서 `getInitialMessage`(종료 상태에서 탭), `onMessageOpenedApp`(백그라운드에서 탭), `onMessage`(포그라운드 - OS 배너가 안 뜨므로 뱃지만 갱신) 세 가지 상태를 모두 처리하며, 탭 시 알림 데이터의 `postId`로 게시글 상세로 딥링크한다.
+- **Android만 설정되어 있다** — `android/app/google-services.json` 배치 완료. iOS는 `GoogleService-Info.plist`/APNs entitlements가 아직 없어 미동작.
+- 백엔드에 Firebase 서비스 계정 키가 아직 없어 실제 발송 자체는 검증되지 않은 상태 (토큰 동기화/수신 처리 코드는 완성).
 
 ## 공용 레이어
 
 - `lib/style/` — 디자인 시스템: `colors.dart`, `decorations.dart`, `text_styles.dart`. 브랜드 컬러는 테라코타(`#C97B5A`) & 크림(`#FBF3EC`), 텍스트는 웜 다크브라운(`#4A3B33`). 지도 화면만 day/night 별도 스타일 보유.
 - `lib/widget/` — 공용 위젯 (TopBar, SafeArea 래퍼, 이미지, 스크롤 유틸 등). **하드코딩 금지, 공용 요소는 반드시 컴포넌트화** — 특히 하단/상단 탭 등 여러 화면에서 재사용되는 요소는 단독으로 만들지 말고 기존 공용 위젯을 확장할 것.
-- `lib/data/service/` — 도메인별 API 서비스: `auth`, `posts`, `comments`, `map`, `location`, `emotion`.
+- `lib/data/service/` — 도메인별 API 서비스: `auth`, `posts`, `comments`, `map`, `location`, `emotion`, `notification`, `fcm`.
 - `lib/generate/` — OpenAPI Generator로 자동 생성된 API/모델 코드. **직접 수정 금지** — 백엔드 API가 바뀌면 `make gen`으로 재생성.
 
 ## 자주 쓰는 명령어
