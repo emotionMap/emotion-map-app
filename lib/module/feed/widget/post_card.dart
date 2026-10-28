@@ -31,6 +31,8 @@ class PostCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
               children: [
                 Text(
                   post.nickname ?? '익명',
@@ -66,14 +68,14 @@ class PostCard extends StatelessWidget {
                   ),
               ],
             ),
-            const EMHeight(8),
+            const EMHeight(12),
             if ((post.emotionList ?? []).isNotEmpty) ...[
               EmotionChipRow(
                 emotions: post.emotionList!,
                 showName: true,
                 emojiSize: AppEmojiSize.md,
               ),
-              const EMHeight(8),
+              const EMHeight(12),
             ],
             if ((post.content ?? '').isNotEmpty)
               Text(

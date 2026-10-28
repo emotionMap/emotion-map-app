@@ -36,7 +36,7 @@ class PostDetailView extends HookConsumerWidget {
         detail.value = result;
       } catch (e) {
         if (context.mounted) {
-          showErrorSnackBar(context, e, fallback: '게시글을 불러오지 못했어요.');
+          showErrorSnackBar(context, e, fallback: '감정 기록을 불러오지 못했어요.');
         }
       } finally {
         initialLoading.value = false;
@@ -110,7 +110,7 @@ class PostDetailView extends HookConsumerWidget {
         builder: (dialogContext) => AlertDialog(
           backgroundColor: AppColors.surface,
           title: Text(
-            '게시글을 삭제할까요?',
+            '감정 기록을 삭제할까요?',
             style: NotoSansKR.bold.set(size: 16, color: AppColors.textPrimary),
           ),
           content: Text(
@@ -147,11 +147,11 @@ class PostDetailView extends HookConsumerWidget {
         await postsService.deletePost(postId);
         postsChangedSignal.value++;
         if (!context.mounted) return;
-        showAppSnackBar(context, '게시글을 삭제했어요.');
+        showAppSnackBar(context, '감정 기록을 삭제했어요.');
         context.router.maybePop();
       } catch (e) {
         if (context.mounted) {
-          showErrorSnackBar(context, e, fallback: '게시글 삭제에 실패했어요.');
+          showErrorSnackBar(context, e, fallback: '감정 기록 삭제에 실패했어요.');
         }
       }
     }
@@ -235,13 +235,13 @@ class PostDetailView extends HookConsumerWidget {
     final comments = detail.value?.comments ?? [];
 
     return Scaffold(
-      appBar: const EMTopBar(title: '게시글'),
+      appBar: AppBar(),
       body: initialLoading.value
           ? const EMLoadingIndicator()
           : post == null
           ? Center(
               child: Text(
-                '게시글을 찾을 수 없어요',
+                '감정 기록을 찾을 수 없어요',
                 style: NotoSansKR.medium.set(
                   size: 14,
                   color: AppColors.textMuted,
@@ -259,6 +259,8 @@ class PostDetailView extends HookConsumerWidget {
                       padding: const EdgeInsets.all(16),
                       children: [
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
                           children: [
                             Text(
                               post.nickname ?? '익명',
@@ -294,13 +296,13 @@ class PostDetailView extends HookConsumerWidget {
                               ),
                           ],
                         ),
-                        const EMHeight(16),
+                        const EMHeight(12),
                         if ((post.emotionList ?? []).isNotEmpty) ...[
                           EmotionChipRow(
                             emotions: post.emotionList!,
                             showName: true,
                           ),
-                          const EMHeight(16),
+                          const EMHeight(12),
                         ],
                         if ((post.content ?? '').isNotEmpty)
                           Text(
