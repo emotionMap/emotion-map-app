@@ -1,0 +1,5 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- dev flavor는 로컬 백엔드(http://localhost:8080)를 사용하므로 평문 트래픽 허용이 필요.
+         prod flavor는 HTTPS(sslip.io)로 전환되어 더 이상 필요 없음. -->
+    <application android:usesCleartextTraffic="true" />
+</manifest>

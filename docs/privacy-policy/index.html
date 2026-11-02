@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EmotionMap 개인정보처리방침</title>
+<style>
+  :root {
+    --bg: #FBF3EC;
+    --surface: #FFFFFF;
+    --surface-sunken: #F4E8DC;
+    --text: #4A3B33;
+    --text-muted: #8A7267;
+    --border: #E8DBCF;
+    --accent: #C97B5A;
+    --accent-strong: #A85A3E;
+    --accent-wash: #F3DFD2;
+    --ok: #4F8F6A;
+    --ok-wash: #E3EFE6;
+    --no: #B6503F;
+    --no-wash: #F6E1DC;
+    --shadow: 0 1px 2px rgba(74,59,51,0.06), 0 6px 20px rgba(74,59,51,0.07);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #221812;
+      --surface: #2C2119;
+      --surface-sunken: #241A14;
+      --text: #F3E6DA;
+      --text-muted: #B3A092;
+      --border: #3E2F26;
+      --accent: #E2996F;
+      --accent-strong: #EFAF8A;
+      --accent-wash: #3B2A20;
+      --ok: #7FBE98;
+      --ok-wash: #253329;
+      --no: #D98A77;
+      --no-wash: #3A241F;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 6px 20px rgba(0,0,0,0.35);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Noto Sans KR", "Pretendard", sans-serif;
+    line-height: 1.75;
+    margin: 0;
+    padding: 56px 24px 100px;
+  }
+
+  .page {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  code, .mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.92em;
+  }
+
+  header.doc-head {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 26px;
+  }
+
+  .eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: 1.9rem;
+    margin: 0;
+    font-weight: 700;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+
+  .doc-sub {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .glance {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .glance h2 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .glance-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 520px) {
+    .glance-grid { grid-template-columns: 1fr; }
+  }
+  .glance-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .glance-col h3 {
+    margin: 0 0 2px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .glance-col.yes h3 { color: var(--ok); }
+  .glance-col.no h3 { color: var(--no); }
+  .glance-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.88rem;
+    padding: 7px 10px;
+    border-radius: 8px;
+  }
+  .glance-col.yes .glance-item { background: var(--ok-wash); }
+  .glance-col.no .glance-item { background: var(--no-wash); }
+  .glance-item .mark { font-weight: 700; flex-shrink: 0; }
+  .glance-col.yes .mark { color: var(--ok); }
+  .glance-col.no .mark { color: var(--no); }
+
+  nav.toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 4px;
+    font-size: 0.85rem;
+  }
+  nav.toc a {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 4px 2px;
+    border-bottom: 1px dashed transparent;
+  }
+  nav.toc a:hover, nav.toc a:focus-visible { color: var(--accent-strong); border-bottom-color: var(--accent-strong); }
+  nav.toc .sep { color: var(--border); }
+
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-margin-top: 20px;
+  }
+
+  h2.clause {
+    font-size: 1.15rem;
+    margin: 0;
+    font-weight: 700;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  h2.clause .num {
+    color: var(--accent-strong);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  p { margin: 0; max-width: 62ch; }
+  section > p + p { margin-top: 2px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th { color: var(--text-muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.02em; }
+  tr:last-child td { border-bottom: none; }
+  .wide-table-wrap { overflow-x: auto; }
+
+  ul.clause-list, ol.clause-list {
+    margin: 0;
+    padding-left: 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 62ch;
+  }
+
+  .note {
+    border-left: 3px solid var(--accent);
+    padding: 10px 14px;
+    background: var(--surface-sunken);
+    border-radius: 0 10px 10px 0;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  footer.doc-foot {
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  a { color: var(--accent-strong); }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="page">
+
+  <header class="doc-head">
+    <span class="eyebrow">Privacy Policy</span>
+    <h1>EmotionMap 개인정보처리방침</h1>
+    <p class="doc-sub">공고일: 2026-10-31 · 시행일: 2026-10-31</p>
+  </header>
+
+  <div class="glance">
+    <h2>한눈에 보기</h2>
+    <div class="glance-grid">
+      <div class="glance-col yes">
+        <h3>수집하는 정보</h3>
+        <div class="glance-item"><span class="mark">●</span><span>기기 식별자 (익명 로그인용)</span></div>
+        <div class="glance-item"><span class="mark">●</span><span>활동 지역 (시/군/구 단위 선택)</span></div>
+        <div class="glance-item"><span class="mark">●</span><span>작성한 게시글·댓글 내용</span></div>
+        <div class="glance-item"><span class="mark">●</span><span>푸시 알림용 기기 토큰</span></div>
+      </div>
+      <div class="glance-col no">
+        <h3>수집하지 않는 정보</h3>
+        <div class="glance-item"><span class="mark">✕</span><span>이름·전화번호·이메일</span></div>
+        <div class="glance-item"><span class="mark">✕</span><span>소셜 로그인 정보</span></div>
+        <div class="glance-item"><span class="mark">✕</span><span>정확한 GPS 좌표, 사진</span></div>
+        <div class="glance-item"><span class="mark">✕</span><span>결제·광고 식별 정보</span></div>
+      </div>
+    </div>
+    <p style="font-size: 0.85rem; color: var(--text-muted);">EmotionMap은 회원가입 없이 기기 단위로 동작하는 완전 익명 서비스입니다. 아래는 법적 효력을 갖는 전문이며, 위 요약은 참고용입니다.</p>
+  </div>
+
+  <nav class="toc" aria-label="목차">
+    <a href="#c1">1. 수집 항목</a><span class="sep">·</span>
+    <a href="#c2">2. 이용 목적</a><span class="sep">·</span>
+    <a href="#c3">3. 보유·이용 기간</a><span class="sep">·</span>
+    <a href="#c4">4. 제3자 제공</a><span class="sep">·</span>
+    <a href="#c5">5. 처리 위탁</a><span class="sep">·</span>
+    <a href="#c6">6. 이용자 권리</a><span class="sep">·</span>
+    <a href="#c7">7. 파기 절차</a><span class="sep">·</span>
+    <a href="#c8">8. 아동 보호</a><span class="sep">·</span>
+    <a href="#c9">9. 보호책임자</a><span class="sep">·</span>
+    <a href="#c10">10. 변경 고지</a>
+  </nav>
+
+  <article>
+
+    <section id="c1">
+      <h2 class="clause"><span class="num">1</span>수집하는 개인정보 항목 및 수집 방법</h2>
+      <p>EmotionMap(이하 "서비스")은 회원가입·실명 인증 없이 기기 단위로 동작하는 익명 서비스로, 다음과 같은 정보를 수집합니다.</p>
+      <div class="card wide-table-wrap">
+        <table>
+          <thead><tr><th>항목</th><th>수집 시점</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>기기 식별자(Device ID)</td><td>앱 최초 실행 시 자동 생성·전송</td><td>이름·전화번호 등 실제 신원과 연결되지 않는 임의 식별값</td></tr>
+            <tr><td>활동 지역 정보</td><td>최초 필수 온보딩 시 이용자가 직접 선택</td><td>시/군/구 단위 선택값. 실시간 GPS 좌표를 수집하지 않음</td></tr>
+            <tr><td>게시글·댓글 내용, 감정 태그</td><td>이용자가 직접 작성 시</td><td>게시글 단위로 부여되는 임의 닉네임과 함께 저장(실명 아님)</td></tr>
+            <tr><td>푸시 알림용 기기 토큰(FCM 토큰)</td><td>알림 권한 허용 시</td><td>좋아요·댓글 알림 발송 목적</td></tr>
+            <tr><td>서비스 이용 기록</td><td>서비스 이용 중 자동 생성</td><td>접속 로그, 기기 모델/OS 버전, 오류 로그 등 서버 운영에 필요한 일반적 접속 정보</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>위 항목 외의 개인정보(이름, 생년월일, 전화번호, 이메일, 소셜 계정 정보, 사진, 결제 정보 등)는 수집하지 않습니다.</p>
+    </section>
+
+    <section id="c2">
+      <h2 class="clause"><span class="num">2</span>개인정보의 수집 및 이용 목적</h2>
+      <p>수집한 정보는 다음 목적으로만 이용하며, 아래 목적이 변경될 경우 사전 동의를 구합니다.</p>
+      <ul class="clause-list">
+        <li>기기 식별자 기반의 익명 로그인 및 서비스 접근 권한 부여</li>
+        <li>활동 지역 기반 피드·지도 콘텐츠 제공</li>
+        <li>게시글·댓글 등록, 표시, 신고 처리 등 서비스 핵심 기능 제공</li>
+        <li>좋아요·댓글 발생 시 푸시 알림 발송</li>
+        <li>부정 이용 방지, 서비스 장애 대응 및 품질 개선을 위한 통계·로그 분석</li>
+      </ul>
+    </section>
+
+    <section id="c3">
+      <h2 class="clause"><span class="num">3</span>개인정보의 보유 및 이용 기간</h2>
+      <p>원칙적으로 이용자가 앱 내에서 계정(기기 연결)을 삭제하거나 서비스 탈퇴를 요청하면 지체 없이 파기합니다. 단, 관계 법령에 따라 보존이 필요한 경우 해당 법령에서 정한 기간 동안 보관합니다.</p>
+      <div class="card wide-table-wrap">
+        <table>
+          <thead><tr><th>보관 항목</th><th>보관 기간</th><th>근거</th></tr></thead>
+          <tbody>
+            <tr><td>기기 식별자, 활동 지역, 게시글·댓글, FCM 토큰</td><td>탈퇴(계정 삭제) 시까지</td><td>서비스 제공 목적 달성 시 즉시 파기</td></tr>
+            <tr><td>서비스 이용 기록(접속 로그)</td><td>3개월</td><td>통신비밀보호법 등 관계 법령</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="c4">
+      <h2 class="clause"><span class="num">4</span>개인정보의 제3자 제공</h2>
+      <p>서비스는 이용자의 개인정보를 원칙적으로 외부에 제공하지 않습니다. 다만 아래의 경우는 예외로 합니다.</p>
+      <ul class="clause-list">
+        <li>이용자가 사전에 별도로 동의한 경우</li>
+        <li>법령의 규정에 의거하거나, 수사 목적으로 법령에서 정한 절차와 방법에 따라 수사기관의 요구가 있는 경우</li>
+      </ul>
+    </section>
+
+    <section id="c5">
+      <h2 class="clause"><span class="num">5</span>개인정보 처리 위탁</h2>
+      <p>서비스는 원활한 업무 처리를 위해 아래와 같이 개인정보 처리 업무를 외부 업체에 위탁하고 있습니다.</p>
+      <div class="card wide-table-wrap">
+        <table>
+          <thead><tr><th>수탁업체</th><th>위탁 업무</th><th>위탁 정보</th></tr></thead>
+          <tbody>
+            <tr><td>Google LLC (Firebase Cloud Messaging)</td><td>푸시 알림 발송</td><td>FCM 기기 토큰</td></tr>
+            <tr><td>Amazon Web Services</td><td>서버 호스팅(서울 리전)</td><td>서비스 운영 전반에 수반되는 정보</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size: 0.88rem; color: var(--text-muted);">위탁업체가 변경되는 경우 본 방침을 통해 사전 고지합니다.</p>
+    </section>
+
+    <section id="c6">
+      <h2 class="clause"><span class="num">6</span>정보주체(이용자)의 권리와 행사 방법</h2>
+      <p>이용자는 언제든지 다음의 권리를 행사할 수 있습니다.</p>
+      <ul class="clause-list">
+        <li>본인이 작성한 게시글·댓글의 열람, 수정, 삭제</li>
+        <li>앱 내 설정을 통한 서비스 탈퇴(계정 삭제) 및 이에 따른 전체 개인정보 파기 요청</li>
+        <li><span class="mono">bohyeonisgood@naver.com</span>을 통한 개인정보 처리 관련 문의·이의 제기</li>
+      </ul>
+      <p>서비스는 회원가입 절차가 없는 익명 구조이므로, 탈퇴 시 해당 기기 식별자와 연결된 모든 정보가 즉시 파기되며 복구가 불가능합니다.</p>
+    </section>
+
+    <section id="c7">
+      <h2 class="clause"><span class="num">7</span>개인정보의 파기 절차 및 방법</h2>
+      <p>이용 목적이 달성되거나 보유 기간이 경과한 개인정보는 지체 없이 파기합니다.</p>
+      <ul class="clause-list">
+        <li><strong>전자적 파일 형태</strong>: 복구가 불가능한 방법으로 영구 삭제</li>
+        <li><strong>파기 절차</strong>: 탈퇴 요청이 접수되면 별도의 DB로 옮겨 보관되는 과정 없이 즉시 삭제 처리</li>
+      </ul>
+    </section>
+
+    <section id="c8">
+      <h2 class="clause"><span class="num">8</span>아동의 개인정보 보호</h2>
+      <p>서비스는 만 14세 미만 아동을 대상으로 하지 않으며, 만 14세 미만 아동의 개인정보를 의도적으로 수집하지 않습니다. 만 14세 미만 아동의 정보가 수집된 사실이 확인될 경우 지체 없이 파기합니다.</p>
+    </section>
+
+    <section id="c9">
+      <h2 class="clause"><span class="num">9</span>개인정보 보호책임자</h2>
+      <p>서비스는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 이용자의 불만 처리 및 피해 구제를 위해 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.</p>
+      <div class="card">
+        <table>
+          <tbody>
+            <tr><th style="width: 90px;">성명</th><td>bohyeon</td></tr>
+            <tr><th>이메일</th><td class="mono">bohyeonisgood@naver.com</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="c10">
+      <h2 class="clause"><span class="num">10</span>개인정보처리방침의 변경</h2>
+      <p>이 개인정보처리방침은 법령·정책 또는 서비스의 변경에 따라 내용이 추가·삭제·수정될 수 있으며, 변경 시 앱 공지사항 또는 본 페이지를 통해 고지합니다.</p>
+      <div class="note">공고 일자: 2026-10-31 · 시행 일자: 2026-10-31</div>
+    </section>
+
+  </article>
+
+  <footer class="doc-foot">
+    EmotionMap · 최초 공고 2026-10-31
+  </footer>
+
+</div>
+</body>
+</html>
