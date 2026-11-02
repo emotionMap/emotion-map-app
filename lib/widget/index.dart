@@ -10,3 +10,4 @@ part 'image.dart';
 part 'top_bar.dart';
 part 'loading.dart';
 part 'snackbar.dart';
+part 'responsive.dart';

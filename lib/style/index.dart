@@ -5,3 +5,4 @@ part 'colors.dart';
 part 'decorations.dart';
 part 'spacing.dart';
 part 'motion.dart';
+part 'breakpoints.dart';

@@ -5,6 +5,7 @@ import 'package:emotion_map_app/provider/app_provider.dart';
 import 'package:emotion_map_app/provider/router_provider.dart';
 import 'package:emotion_map_app/style/index.dart';
 import 'package:emotion_map_app/util/logger.dart';
+import 'package:emotion_map_app/widget/index.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,8 @@ Future<void> main() async {
 
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 
+  // 기본값은 세로 고정. 폴드폰을 펼친 상태(넓은 화면)로 실행되면 MyApp의
+  // useEffect가 즉시 모든 방향을 허용하도록 덮어쓴다 - 접힌 폰에서는 변화 없음.
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   final appMode = AppMode.fromString(appFlavor ?? "prod");
@@ -69,6 +72,19 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    final isWideScreen = context.isWideScreen;
+
+    useEffect(() {
+      // 폴드폰을 펼친 상태처럼 넓은 화면이면 회전을 전부 허용하고,
+      // 접힌 폰(좁은 화면)이면 세로로 고정한다. 펼치고/접는 동작마다
+      // MediaQuery가 바뀌면서 이 effect가 다시 돌아 즉시 반영된다.
+      SystemChrome.setPreferredOrientations(
+        isWideScreen
+            ? DeviceOrientation.values
+            : const [DeviceOrientation.portraitUp],
+      );
+      return null;
+    }, [isWideScreen]);
 
     void navigateToPost(RemoteMessage message) {
       final postId = int.tryParse(message.data['postId'] ?? '');
