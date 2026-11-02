@@ -40,10 +40,22 @@ class NotificationService {
     }
   }
 
-  /// 알림 목록 화면 진입 시 호출 - 전체 읽음 처리 (뱃지 비활성화)
+  /// 전체 읽음 처리
   Future<void> readAll() async {
     try {
       await _notificationsApi.readAll();
+    } on DioException catch (e) {
+      return Future.error(getErrorMessage(e));
+    } catch (e) {
+      debugPrint(e.toString());
+      return Future.error("");
+    }
+  }
+
+  /// 개별 알림 읽음 처리 - 알림 목록에서 항목을 탭했을 때 호출
+  Future<void> markRead(int notificationId) async {
+    try {
+      await _notificationsApi.markRead(notificationId: notificationId);
     } on DioException catch (e) {
       return Future.error(getErrorMessage(e));
     } catch (e) {

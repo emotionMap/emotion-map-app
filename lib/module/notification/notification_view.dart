@@ -27,9 +27,6 @@ class NotificationView extends HookConsumerWidget {
           size: 50,
         );
         notifications.value = result;
-        // 안읽은 채로 화면에 띄운 뒤 전체 읍음 처리 - 뱃지는 꺼지지만
-        // 이번 조회에서 뭐가 새 알림이었는지는 그대로 구분해서 보여준다.
-        await notificationService.readAll();
       } catch (e) {
         if (context.mounted) {
           showErrorSnackBar(context, e, fallback: '불러오지 못했어요.');
@@ -48,6 +45,18 @@ class NotificationView extends HookConsumerWidget {
     void onNotificationTap(NotificationResponse notification) {
       final postId = notification.postId;
       if (postId == null) return;
+
+      // 탭한 항목만 즉시 읽음 표시 (화면에 바로 반영 + 서버에도 기록, 실패해도 이동은 막지 않는다)
+      final notificationId = notification.notificationId;
+      if (notificationId != null && notification.isRead != true) {
+        notifications.value = notifications.value
+            .map((n) => n.notificationId == notificationId
+                ? n.copyWith(isRead: true)
+                : n)
+            .toList();
+        notificationService.markRead(notificationId).catchError((_) {});
+      }
+
       context.router.push(PostDetailRoute(postId: postId));
     }
 

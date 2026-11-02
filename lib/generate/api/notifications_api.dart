@@ -38,8 +38,21 @@ abstract class NotificationsApi {
   @GET('/notifications/unread-count')
   Future<ApiResponseInteger> getUnreadCount({CancelToken? cancelToken});
 
+  /// 개별 알림 읽음 처리
+  /// 알림 목록에서 항목을 탭했을 때 호출
+  ///
+  /// Parameters:
+  /// * [notificationId]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  ///
+  @PATCH('/notifications/{notificationId}/read')
+  Future<ApiResponseVoid> markRead({
+    @Path('notificationId') required int notificationId,
+    CancelToken? cancelToken,
+  });
+
   /// 전체 읽음 처리
-  /// 알림 목록 화면 진입 시 호출 - 알림 뱃지 비활성화
+  ///
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
