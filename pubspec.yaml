@@ -50,6 +50,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # Launcher icon
+  flutter_launcher_icons: ^0.14.4
+
   # State
   riverpod_generator: ^4.0.0+1
 
@@ -105,3 +108,11 @@ flutter:
           weight: 800
         - asset: assets/font/NotoSansKR-Black.ttf
           weight: 900
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icon/icon-legacy.png"
+  adaptive_icon_background: "#15110D"
+  adaptive_icon_foreground: "assets/icon/icon-foreground.png"
+  min_sdk_android: 21
